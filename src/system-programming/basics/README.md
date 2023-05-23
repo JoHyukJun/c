@@ -102,11 +102,15 @@ an.c를 컴파일할 때 실행 파일명을 han으로 하려고한다. gcc의 �
 
 ## a-06
 
+시스템 호출은 커널의 해당 모듈을 직접 호출해 작업하고 결과를 리턴하는 반면 라이브러리 함수는 커널 묘듈에 접근하기 위해 함수 내부의 시스템 호출을 사용한다.
+
 ## q-07
 
 man write 명렁을 실행했는데, write() 함수가 아니라 write 명령에 대한 매뉴얼이 출력되었다. write() 함수의 매뉴얼을 보려면 어떻게 해야 할까?
 
 ## a-07
+
+man -s 3 write 명령어를 통해 라이브러리 함수 섹션 번호 3번을 입력하여 매뉴얼을 확인하면 된다.
 
 ## q-08
 
@@ -114,11 +118,35 @@ man write 명렁을 실행했는데, write() 함수가 아니라 write 명령에
 
 ## a-08
 
+오류 번호가 1일 경우에는 #define EPERM 1 으로 헤더 파일에 정의 되어 있으며 Operation not permitted로 권한관련 오류이다.
+
 ## q-09
 
 [예제1-1]을 수정해 errno 번호뿐만 아니라 오류 메시지도 출력되도록 코드를 수정하시오([예제 1-4] 참조).
 
 ## a-09
+
+```C
+#include <stdio.h>
+#include <unistd.h>
+#include <errno.h>
+#include <stdlib.h>
+#include <string.h>
+
+extern int errno;
+
+
+int main() {
+    char *err;
+
+    if(access("test.txt", F_OK) == -1) {
+        err = strerror(errno);
+        
+        printf("errno=%d\n", errno);
+        printf("err: %s(test.txt)\n", err);
+    }
+}
+```
 
 ## q-10
 
