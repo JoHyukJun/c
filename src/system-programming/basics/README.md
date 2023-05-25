@@ -126,27 +126,7 @@ man -s 3 write 명령어를 통해 라이브러리 함수 섹션 번호 3번을 
 
 ## a-09
 
-```C
-#include <stdio.h>
-#include <unistd.h>
-#include <errno.h>
-#include <stdlib.h>
-#include <string.h>
-
-extern int errno;
-
-
-int main() {
-    char *err;
-
-    if(access("test.txt", F_OK) == -1) {
-        err = strerror(errno);
-        
-        printf("errno=%d\n", errno);
-        printf("err: %s(test.txt)\n", err);
-    }
-}
-```
+### ./error_out.c
 
 ## q-10
 
@@ -154,11 +134,21 @@ gcc로 소스 코드를 컴파일했더니 실행 파일 a.out이 만들어졌�
 
 ## a-10
 
+### gcc -o ex10.exe ex10.c
+
+    - -o 옵션을 통해 실행 파일명 수정
+
 ## q-11
 
 gcc로 소스 코드를 컴파일해 실행 파일인 ex11.exe를 만들었다. ls 명령으로 확인하면 ex11.exe가 보이는데, ex11.exe를 실행하면 파일을 찾을 수 없다고 한다. 무엇이 문제이고 어떻게 해결할 수 있는지 설명하시오.
 
 ## a-11
+
+### gcc -c ex11.c
+
+### gcc -o ex11.exe ex11.o
+
+    - 바로 -o 옵션을 이용해 exe 파일을 생성할때 코드 내부에 정의되지 않은 외부 함수가 있을 경우 링크 단계를 거치지 않았으므로 에러가 발생한다. 따라서, 먼저 -c 옵션을 통해 링크 단계를 거친 오브젝트 파일을 가지고 실행파일을 생성하여 문제를 해결할 수 있다.
 
 ## q-12
 
@@ -166,17 +156,23 @@ gcc로 소스 코드를 컴파일해 실행 파일인 ex11.exe를 만들었다. 
 
 ## a-12
 
+### ./subnum/
+
 ## q-13
 
 프로그램을 실행하는 도중에 정숫값 200개를 저장할 수 있도록 메모리를 할당하려면 어떻게 해야 할까?
 
 ## a-13
 
+### ./mem.c
+
 ## q-14
 
 명령행 인자로 정숫값(작은 수, 큰 수) 2개를 받아서 앞의 값부터 뒤의 값까지 합계를 구하는 프로그램을 작성하시오.
 
 ## a-14
+
+### ./addnum-cmd
 
 ## q-15
 
@@ -195,3 +191,5 @@ gcc로 소스 코드를 컴파일해 실행 파일인 ex11.exe를 만들었다. 
 - -h: 사용 가능한 옵션의 목록 출력
 
 ## a-15
+
+### ./cmdopt.c
