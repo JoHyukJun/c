@@ -68,11 +68,11 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://github.com/JoHyukJun/c-labs)
 
-It is a project aimed at learning and implementing server backend design using a framework of java programming languages and storing careers built up while performing tasks.
+This project is for learning the c language and for deep exploration of system programming.
 
 Here's why:
-* To build a career
-* To learn a variety of programming languages
+* To learn system programming
+* To learn c language
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -111,12 +111,6 @@ Perform the following procedure to install the required package.
    ```sh
    git clone https://github.com/JoHyukJun/c-labs.git
    ```
-
-### Docker
-* docker-compose
-  ```sh
-  docker-compose -f docker-compose.dev.yml up
-  ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
