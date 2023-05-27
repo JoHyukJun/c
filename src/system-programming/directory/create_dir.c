@@ -4,7 +4,7 @@
 
 
 int main() {
-    if (mkdir("jo", 0755) == -1) {
+    if (mkdir("jo") == -1) {
         perror("jo");
 
         exit(1);
