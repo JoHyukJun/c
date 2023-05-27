@@ -4,9 +4,8 @@
 
 
 int main() {
-    if (mkdir("jo") == -1) {
-        perror("jo");
-
+    if (rename("jo", "hj") == -1) {
+        perror("rename err");
         exit(1);
     }
 }
