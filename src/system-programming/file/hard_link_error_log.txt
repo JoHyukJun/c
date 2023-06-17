@@ -1,0 +1,2 @@
+creating hard link `test/jo.txt' => `jo/jo.ln': No such file or dir
+ectory
