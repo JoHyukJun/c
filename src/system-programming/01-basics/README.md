@@ -82,16 +82,16 @@ man 페이지 번호에서 시스템 호출을 나타내는 섹션 번호는?
 
 ## q-05
 
-an.c를 컴파일할 때 실행 파일명을 han으로 하려고한다. gcc의 옵션을 바르게 설정한 것은?
+an.c를 컴파일할 때 실행 파일명을 jo으로 하려고한다. gcc의 옵션을 바르게 설정한 것은?
 
-    1. gcc han.c
-    2. gcc -c han han.c
-    3. gcc -a han han.c
-    4. gcc -o han han.c
+    1. gcc jo.c
+    2. gcc -c jo jo.c
+    3. gcc -a jo jo.c
+    4. gcc -o jo jo.c
 
 ## a-05
 
-### 4. gcc -o han han.c
+### 4. gcc -o jo jo.c
 
     - 옵션 c
         - 오브젝트 파일만 생성

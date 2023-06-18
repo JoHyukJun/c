@@ -41,16 +41,16 @@
 
 ## q-03
 
-access() 함수를 사용해 han.txt 파일이 존재하는 확인하려고 한다. 올바르게 사용한 것은?
+access() 함수를 사용해 jo.txt 파일이 존재하는 확인하려고 한다. 올바르게 사용한 것은?
 
-    1. access("han.txt", R_OK)
-    2. access("han.txt", W_OK)
-    3. access("han.txt", IS_OK)
-    4. access("han.txt", F_OK)
+    1. access("jo.txt", R_OK)
+    2. access("jo.txt", W_OK)
+    3. access("jo.txt", IS_OK)
+    4. access("jo.txt", F_OK)
 
 ## a-03
 
-### 4. access("han.txt", F_OK)
+### 4. access("jo.txt", F_OK)
 
     - R_OK
         - 읽기 권한 확인
@@ -59,16 +59,16 @@ access() 함수를 사용해 han.txt 파일이 존재하는 확인하려고 한�
 
 ## q-04
 
-chmod() 함수를 사용해 han.txt 파일의 권한을 소유자만 읽고 쓸 수 있도록 설정하려고 한다. 올바르게 설정한 것은?
+chmod() 함수를 사용해 jo.txt 파일의 권한을 소유자만 읽고 쓸 수 있도록 설정하려고 한다. 올바르게 설정한 것은?
 
-    1. chmod("han.txt", S_ISUSR | S_IWGRP)
-    2. chmod("han.txt", S_IRGRP | S_IWGRP)
-    3. chmod("han.txt", S_IRUSR | S_IWUSR)
-    4. chmod("han.txt", S_IRWXU | S_IWUSR)
+    1. chmod("jo.txt", S_ISUSR | S_IWGRP)
+    2. chmod("jo.txt", S_IRGRP | S_IWGRP)
+    3. chmod("jo.txt", S_IRUSR | S_IWUSR)
+    4. chmod("jo.txt", S_IRWXU | S_IWUSR)
 
 ## a-04
 
-### 3. chmod("han.txt", S_IRUSR | S_IWUSR)
+### 3. chmod("jo.txt", S_IRUSR | S_IWUSR)
 
     - S_ISUSR
         - 소유자에게 읽기 권한
@@ -83,16 +83,16 @@ chmod() 함수를 사용해 han.txt 파일의 권한을 소유자만 읽고 쓸 
 
 ## q-05
 
-han.txt 파일의 하드링크로 han.ln 파일을 만들려고 한다. 맞게 사용한 것은?
+jo.txt 파일의 하드링크로 jo.ln 파일을 만들려고 한다. 맞게 사용한 것은?
 
-    1. symlink("han.txt", "han.ln")
-    2. link("han.txt", "han.ln")
-    3. lin("han.txt", "han.ln")
-    4. symlink("han.ln", "han.txt")
+    1. symlink("jo.txt", "jo.ln")
+    2. link("jo.txt", "jo.ln")
+    3. lin("jo.txt", "jo.ln")
+    4. symlink("jo.ln", "jo.txt")
 
 ## a-05
 
-### 2. link("han.txt", "han.ln")
+### 2. link("jo.txt", "jo.ln")
 
     - 링크는 이미 있는 파일이나 디렉터리에 접근할 수 있는 새로운 이름을 의미
     - 같은 파일이나 디렉터리이지만 여러 이름으로 접근할 수 있게 하는 것

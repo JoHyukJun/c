@@ -4,126 +4,84 @@
 
 ## q-01
 
-open() 함수를 사용해 han.txt 파일을 생성하고, 이미 파일이 있으면 오류 메시지를 출력하려고 한다. 올바르게 작성한 것은?
+open() 함수를 사용해 jo.txt 파일을 생성하고, 이미 파일이 있으면 오류 메시지를 출력하려고 한다. 올바르게 작성한 것은?
 
-    1. open("han.txt", O_CREAT, 0644)
-    2. open("han.txt", O_CREAT | O_EXCL, 0644)
-    3. open("han.txt", O_CREAT | O_TRUNC, 0644)
-    4. open("han.txt", O_CREAT | O_APPEND, 0644)
+    1. open("jo.txt", O_CREAT, 0644)
+    2. open("jo.txt", O_CREAT | O_EXCL, 0644)
+    3. open("jo.txt", O_CREAT | O_TRUNC, 0644)
+    4. open("jo.txt", O_CREAT | O_APPEND, 0644)
 
 ## a-01
 
-### 2. stat()
-
-    - pathname에 지정한 파일의 정보를 검색
-    - 읽기/쓰기/실행 권한 상관없이 검색 가능
-    - 디렉터리에대한 읽기 권한 필요
+###
 
 ## q-02
 
-매크로를 이용해 파일의 종류를 검색하려고 한다. 일반 파일인지 알아내는 매크로는?
+lseek() 함수를 사용해 파일 오프셋의 현재 위치를 검색하려고 한다. 맞게 사용한 것은?
 
-    1. S_ISLNK(m)
-    2. S_ISCHR(m)
-    3. S_ISFIFO(m)
-    4. S_ISREG(m)
+    1. lseek(fd, 0, SEEK_SET)
+    2. lseek(fd, 0, SEEK_END)
+    3. lseek(fd, 1, SEEK_CUR)
+    4. lseek(fd, 0, SEEK_CUR)
 
 ## a-02
 
-### 4. S_ISREG(m)
-
-    - S_ISLNK(m)
-        - 심벌릭 링크 파일 확인
-    - S_ISCHR(m)
-        - 문자 장치 특수 파일 확인
-    - S_ISFIFO(m)
-        - FIFO 파일 확인
+###
 
 ## q-03
 
-access() 함수를 사용해 han.txt 파일이 존재하는 확인하려고 한다. 올바르게 사용한 것은?
+고수준 파일 입출력에서 한 번에 한 문자씩 읽어옭 때 사용하는 함수는?
 
-    1. access("han.txt", R_OK)
-    2. access("han.txt", W_OK)
-    3. access("han.txt", IS_OK)
-    4. access("han.txt", F_OK)
+    1. read()
+    2. fputc()
+    3. fgetc()
+    4. fgets()
 
 ## a-03
 
-### 4. access("han.txt", F_OK)
-
-    - R_OK
-        - 읽기 권한 확인
-    - W_OK
-        - 쓰기 권한 확인
+###
 
 ## q-04
 
-chmod() 함수를 사용해 han.txt 파일의 권한을 소유자만 읽고 쓸 수 있도록 설정하려고 한다. 올바르게 설정한 것은?
+파일 기술자 fd를 파일 포인터로 변환하려고 한다. 맞게 사용한 것은?
 
-    1. chmod("han.txt", S_ISUSR | S_IWGRP)
-    2. chmod("han.txt", S_IRGRP | S_IWGRP)
-    3. chmod("han.txt", S_IRUSR | S_IWUSR)
-    4. chmod("han.txt", S_IRWXU | S_IWUSR)
+    1. fdopen(fd, "r")
+    2. fileno(fd)
+    3. fopen(fd)
+    4. ftell(fd)
 
 ## a-04
 
-### 3. chmod("han.txt", S_IRUSR | S_IWUSR)
-
-    - S_ISUSR
-        - 소유자에게 읽기 권한
-    - S_IWUSR
-        - 소유자에게 쓰기 권한
-    - S_IWGRP
-        - 그룹에게 쓰기 권한
-    - S_IRGRP
-        - 그룹에게 읽기 권한
-    - S_IRWXU
-        - 그룹에게 읽기/쓰기/실행 권한
+###
 
 ## q-05
 
-han.txt 파일의 하드링크로 han.ln 파일을 만들려고 한다. 맞게 사용한 것은?
+/tmp 디렉터리에 접두어로 "jo"을 지정해 임시 파일을 생성하려고 한다. 맞게 사용한 것은?
 
-    1. symlink("han.txt", "han.ln")
-    2. link("han.txt", "han.ln")
-    3. lin("han.txt", "han.ln")
-    4. symlink("han.ln", "han.txt")
+    1. tmpnam("jo")
+    2. tmpnam("/tmp", "jo")
+    3. tempnam("/tmp", "jo")
+    4. tempnam("jo")
 
 ## a-05
 
-### 2. link("han.txt", "han.ln")
-
-    - 링크는 이미 있는 파일이나 디렉터리에 접근할 수 있는 새로운 이름을 의미
-    - 같은 파일이나 디렉터리이지만 여러 이름으로 접근할 수 있게 하는 것
-    - 하드 링크
-        - 파일에 접근할 수 있는 파일명을 새로 생성하는 것
-        - 기존 파일과 동일한 inode 사용
-        - 하드 링크 생성시 inode에 저장된 link count 증가
-        - link() 함수
-            - 첫 번째 인자로 oldpath
-            - 두 번째 인자로 newpath
-    - 심벌릭 링크
-        - 기존 파일에 접근할 수 있는 다른 파일 생성
-        - 기존 파일과 다른 inode 사용
-        - symlink() 함수
-            - 첫 번째 인자로 target
-            - 두 번째 인자로 linkpath
-        - lstat() 함수
-            - 심벌릭 링크 자체의 파일 정보 검색 함수
-            - 심벌릭 링크를 stat() 함수로 검색하면 원본 파일에 대한 정보가 검색된다는 점 주의
+###
 
 ## q-06
 
-명령행 인자로 받은 파일의 크기를 알려주는 프로그램을 작성하시오.
+저수준 파일 입출력을 이용해 'newcat' 프로그램을 작성하시오. 이때 행 번호를 붙여서 출력하고 파일명은 명령행 인자로 받는다.
+
+    newcat jo.c
 
 ## a-06
 
-### ./file_size.c
+###
 
 ## q-07
 
-명령행 인자로 받은 파일의 종류를 출력하는 프로그램을 작성하시오.
+저수준 파일 입출력을 이용해 파일을 복사하는 프로그램을 작성하시오. 이떄 파일명은 명령행 인자로 받는다.
+
+    newcp jo.c hj.c
 
 ## a-07
 
