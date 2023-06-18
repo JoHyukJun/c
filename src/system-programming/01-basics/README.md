@@ -1,6 +1,4 @@
-# basics
-
-## 01
+# 01-basics
 
 ## qna
 

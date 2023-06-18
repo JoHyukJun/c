@@ -1,6 +1,4 @@
-# directory
-
-## 02
+# 02-directory
 
 ## qna
 

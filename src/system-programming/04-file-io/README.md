@@ -1,13 +1,15 @@
-# qna
+# 04-file-io
+
+## qna
 
 ## q-01
 
-파일명으로 파일 정보를 검색할 때 사용하는 함수는?
+open() 함수를 사용해 han.txt 파일을 생성하고, 이미 파일이 있으면 오류 메시지를 출력하려고 한다. 올바르게 작성한 것은?
 
-    1. fstat()
-    2. stat()
-    3. inode()
-    4. fopen()
+    1. open("han.txt", O_CREAT, 0644)
+    2. open("han.txt", O_CREAT | O_EXCL, 0644)
+    3. open("han.txt", O_CREAT | O_TRUNC, 0644)
+    4. open("han.txt", O_CREAT | O_APPEND, 0644)
 
 ## a-01
 
