@@ -70,7 +70,17 @@ lseek() 함수를 사용해 파일 오프셋의 현재 위치를 검색하려고
 
 ## a-03
 
-###
+### 3. fgetc()
+
+    - fgetc()
+        - int fgetc(FILE *stream)
+        - 파일 포인터가 가리키는 파일로부터 문자 한 개를 unsigned char 형태로 읽어옴
+    - fputc()
+        - int fputc(int c, FILE *stream)
+        - 인자로 받은 int형 데이터 c 를 unsigned char 로 변환해 파일에 씀
+    - fgets()
+        - char *fgets(char *s, int size, FILE *stream)
+        - 파일 포인터가 가리키는 파일에서 변수 size에 지정한 길이보다 하나 적게 문자열을 읽어 s에 저장
 
 ## q-04
 
@@ -83,7 +93,7 @@ lseek() 함수를 사용해 파일 오프셋의 현재 위치를 검색하려고
 
 ## a-04
 
-###
+### 1. fdopen(fd, "r")
 
 ## q-05
 
