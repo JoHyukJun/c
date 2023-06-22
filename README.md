@@ -20,7 +20,7 @@
   <h3 align="center">c-labs</h3>
 
   <p align="center">
-    A C Programming Project.
+    The C Programming Project.
     <br />
     <a href="https://github.com/JoHyukJun/c-labs"><strong>Explore the docs »</strong></a>
     <br />
