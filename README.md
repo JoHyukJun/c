@@ -128,7 +128,8 @@ _For more examples, please refer to the [Documentation](https://github.com/JoHyu
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Add tutorial c labs
+- [x] system-programming
+- [ ] advanced-c
 
 See the [open issues](https://github.com/JoHyukJun/c-labs/issues) for a full list of proposed features (and known issues).
 
