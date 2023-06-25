@@ -17,7 +17,7 @@ int main() {
         exit(1);
     }
 
-    while ((c = fread(buf, sizeof(char)*2, 4,rfp)) > 0) {
+    while ((c = fread(buf, sizeof(char)*2, 4, rfp)) > 0) {
         fwrite(buf, sizeof(char)*2, c, wfp);
     }
 
