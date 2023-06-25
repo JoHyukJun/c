@@ -4,8 +4,7 @@
 
 int main() {
     FILE *rfp, *wfp;
-    char buf[BUFSIZ];
-    int c;
+    int id, s1, s2, s3, s4, n;
 
     if ((rfp = fopen("jo.txt", "r")) == NULL) {
         perror("fopen");
@@ -17,8 +16,10 @@ int main() {
         exit(1);
     }
 
-    while ((c = fread(buf, sizeof(char)*2, 4, rfp)) > 0) {
-        fwrite(buf, sizeof(char)*2, c, wfp);
+    fprintf(wfp, "학번    평균\n");
+
+    while ((n = fscanf(rfp, "%d %d %d %d %d", &id, &s1, &s2, &s3, &s4)) != EOF) {
+        fprintf(wfp, "%d : %d\n", id, (s1+s2+s3+s4)/4);
     }
 
     fclose(rfp);
