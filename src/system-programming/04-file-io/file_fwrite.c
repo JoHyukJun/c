@@ -3,7 +3,7 @@
 
 
 int main() {
-    FILE *rfp;
+    FILE *rfp, *wfp;
     char buf[BUFSIZ];
     int c;
 
@@ -12,10 +12,15 @@ int main() {
         exit(1);
     }
 
+    if ((wfp = fopen("jo.bak", "w")) == NULL) {
+        perror("fopen");
+        exit(1);
+    }
+
     while ((c = fread(buf, sizeof(char)*2, 4, rfp)) > 0) {
-        buf[8] = '\0';
-        printf("c = %d, buf = %s\n", n, buf);
+        fwrite(buf, sizeof(char)*2, c, wfp);
     }
 
     fclose(rfp);
+    fclose(wfp);
 }
