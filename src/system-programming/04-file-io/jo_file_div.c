@@ -7,8 +7,11 @@
 int main() {
     int rfd, n;
     char buf[BUFSIZ];
+    char *file_name;
 
-    rfd = open("jo.txt", O_RDONLY);
+    file_name = argv[1];
+
+    rfd = open(file_name, O_RDONLY);
 
     if (rfd == -1) {
         perror("open");
