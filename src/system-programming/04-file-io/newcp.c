@@ -5,40 +5,39 @@
 
 
 int main(int argc, char *argv[]) {
-    int fd, n, i;
+    int rfd, wfd, n, i;
     char buf[BUFSIZ];
     char *file_name;
+    char *cp_file_name;
 
     file_name = argv[1];
+    cp_file_name = argv[2];
 
-    fd = open(file_name, O_RDONLY);
+    rfd = open(file_name, O_RDONLY);
 
-    if (fd == -1) {
+    if (rfd == -1) {
         perror("open");
         exit(1);
     }
 
-    n = read(fd, buf, BUFSIZ);
+    wfd = open(cp_file_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+
+    if (wfd == -1) {
+        perror("open");
+        exit(1);
+    }
+
+    while(n = read(rfd, buf, 1) > 0) {
+        if (write(wfd, buf, n) != n) {
+            perror("write");
+        }
+    }
 
     if (n == -1) {
         perror("read");
         exit(1);
     }
 
-    buf[n] = '\0';
-
-    int row;
-    char *line;
-
-    row = 0;
-    line = strtok(buf, "\n");
-
-    while(line) {
-        printf("%d   %s\n", row, line);
-        row += 1;
-
-        line = strtok(NULL, "\n");
-    }
-    
-    close(fd);
+    close(rfd);
+    close(wfd);
 }
