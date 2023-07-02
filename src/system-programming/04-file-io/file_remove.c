@@ -12,5 +12,5 @@ int main() {
         exit(1);
     }
 
-    print("removed\n");
+    printf("removed\n");
 }
