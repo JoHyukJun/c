@@ -10,13 +10,24 @@
     uname(&uts);
 
     1. printf("%s\n", uts.nodename)
-    2. open("%s\n", uts.osname)
-    3. open("%s\n", uts.sysname)
-    4. open("%s\n", uts.uname)
+    2. printf("%s\n", uts.osname)
+    3. printf("%s\n", uts.sysname)
+    4. printf("%s\n", uts.uname)
 
 ## a-01
 
-### 
+### 3. printf("%s\n", uts.sysname)
+
+    - sysname
+        - 현재 운영체제의 이름을 저장
+    - nodename
+        - 네트웤를 통해 통신할 떄 사용하는 시스템의 이름을 저장
+    - release
+        - 운영체제의 릴리즈 번호를 저장
+    - version
+        - 운영체제의 버전 번호를 저장
+    - machine
+        - 운영체제가 동작하는 하드웨어의 표준 이름(아키텍처)를 저장
 
 ## q-02
 
