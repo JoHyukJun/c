@@ -40,7 +40,24 @@ sysconf() 함수를 사용해 로그인명의 최대 길이를 알아보려고 �
 
 ## a-02
 
-###
+### 2. sysconf(_SC_LOGIN_NAME_MAX)
+
+    - _SC_ARG_MAX
+        - exec() 계열 함수에 사용하는 인자의 최대 크기
+    - _SC_CHILD_MAX
+        - 한 UID에 허용되는 최대 프로세스 개수
+    - _SC_HOST_NAME_MAX
+        - 호스트명의 최대 길이
+    - _SC_LOGIN_NAME_MAX
+        - 로그인명의 최대 길이
+    - _SC_CLT_TCK
+        - 초당 클록 틱 수
+    - _SC_OPEN_MAX
+        - 프로세스당 열 수 있는 최대 파일 수
+    - _SC_PAGESIZE
+        - 시스템 메모리의 페이지 크기
+    - _SC_VERSION
+        - 시스템이 지원하는 POSIX.1의 버전
 
 ## q-03
 
