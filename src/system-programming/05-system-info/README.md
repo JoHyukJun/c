@@ -10,13 +10,24 @@
     uname(&uts);
 
     1. printf("%s\n", uts.nodename)
-    2. open("%s\n", uts.osname)
-    3. open("%s\n", uts.sysname)
-    4. open("%s\n", uts.uname)
+    2. printf("%s\n", uts.osname)
+    3. printf("%s\n", uts.sysname)
+    4. printf("%s\n", uts.uname)
 
 ## a-01
 
-### 
+### 3. printf("%s\n", uts.sysname)
+
+    - sysname
+        - 현재 운영체제의 이름을 저장
+    - nodename
+        - 네트웤를 통해 통신할 떄 사용하는 시스템의 이름을 저장
+    - release
+        - 운영체제의 릴리즈 번호를 저장
+    - version
+        - 운영체제의 버전 번호를 저장
+    - machine
+        - 운영체제가 동작하는 하드웨어의 표준 이름(아키텍처)를 저장
 
 ## q-02
 
@@ -29,7 +40,24 @@ sysconf() 함수를 사용해 로그인명의 최대 길이를 알아보려고 �
 
 ## a-02
 
-###
+### 2. sysconf(_SC_LOGIN_NAME_MAX)
+
+    - _SC_ARG_MAX
+        - exec() 계열 함수에 사용하는 인자의 최대 크기
+    - _SC_CHILD_MAX
+        - 한 UID에 허용되는 최대 프로세스 개수
+    - _SC_HOST_NAME_MAX
+        - 호스트명의 최대 길이
+    - _SC_LOGIN_NAME_MAX
+        - 로그인명의 최대 길이
+    - _SC_CLT_TCK
+        - 초당 클록 틱 수
+    - _SC_OPEN_MAX
+        - 프로세스당 열 수 있는 최대 파일 수
+    - _SC_PAGESIZE
+        - 시스템 메모리의 페이지 크기
+    - _SC_VERSION
+        - 시스템이 지원하는 POSIX.1의 버전
 
 ## q-03
 
@@ -42,11 +70,13 @@ sysconf() 함수를 사용해 로그인명의 최대 길이를 알아보려고 �
 
 ## a-03
 
-###
+### 4. getpwnam("jo")
+
+    - 로그인명을 받아 /etc/passwd 파일에서 사용자 정보를 검색한 후 검색 결과를 passwd 구조체에 저장하고 주소를 리턴
 
 ## q-04
 
-/etc/gropu 파일을 순차적으로 읽다가 파일의 오프셋을 처음으로 위치시키려고 한다. 이때 사용하는 함수는?
+/etc/group 파일을 순차적으로 읽다가 파일의 오프셋을 처음으로 위치시키려고 한다. 이때 사용하는 함수는?
 
     1. getgrent()
     2. lseek()
@@ -55,7 +85,10 @@ sysconf() 함수를 사용해 로그인명의 최대 길이를 알아보려고 �
 
 ## a-04
 
-###
+### 3. segrent()
+
+    - void setgrent(void);
+        - /etc/gourp 파일의 오프셋을 파일의 처음으로 위치
 
 ## q-05
 
