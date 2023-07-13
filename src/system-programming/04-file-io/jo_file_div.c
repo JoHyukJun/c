@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 
-int main() {
+int main(int argc, char *argv[]) {
     int rfd, n;
     char buf[BUFSIZ];
     char *file_name;
