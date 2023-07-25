@@ -140,7 +140,7 @@ uname() 함수를 사용하여 myuname 명령을 만드시오. myuname 명령은
 
 ## a-06
 
-###
+### ./myuname
 
 ## q-07
 
