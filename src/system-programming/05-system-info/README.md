@@ -148,7 +148,7 @@ uname()과 gethostname() 함수로 호스트 이름을 검색해 출력하시오
 
 ## a-07
 
-###
+### ./hostname.c
 
 ## q-08
 

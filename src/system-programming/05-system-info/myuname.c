@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
         {
         case 'a':
             if (uname(&uts) == -1) {
-                perror("unmae");
+                perror("uname");
                 exit(1);
             }
 
