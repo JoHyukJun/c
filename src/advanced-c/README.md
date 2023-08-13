@@ -1,19 +1,169 @@
 # advanced-c
 
-## 01 basics
+## 01-basics
 
-## 02 compiler
+### little endian
 
-## 03 function
+    - 낮은 주소에 데이터의 낮은 바이트(LSB, Least Significant Bit) 부터 저장하는 방식
+    - intel cpu 에서 채택한 방식
+    - 0x00112233 -> 0x33 0x22 0x11 0x00
+    - 네트워크에서는 big endian 통일
 
-## 04 file-io
+### floating point
 
-## 05 variable
+    - float
+        - 단정도
+        - 32bit
+        - 소수점 이하 6자리
+    - double
+        - 배정도
+        - 64bit
+        - 소수점 이하 15자리
+    - IEEE 754
+        - cpu 레벨의 실수 계산 표준
+        - single format
+            - 1bit(S) + 8bit(지수) + 23bit(가수)
+        - double format
+            - 1bit(S) + 11bit(지수) + 52bit(가수)
 
-## 06 advanced-function
+### string
 
-## 07 multi-thread
+    - 문자열은 상수화된 문자 배열
+    - 문자열 상수는 수정 가능
+        - 메모리 영역에서 수정하면 문자열 변경 가능
+        - 상수화되어있어 동적할당된 메모리
+        - memory
+            - data
+                - run time
+                - heap
+                    - malloc
+                - stack
+                    - 자동변수
+            - static
+                - compile time
+                - R--
+                    - string
+                - RW-
+                    - 정적변수
 
-## 08 libaray
+### point of code
 
-## 09 security
+    - compile time
+        - 코드 작성 시점
+        - 기계어로 번역
+        - 목적 파일 생성
+    - link time
+        - 바이너리 생성
+    - run time
+        - 실행 시점
+
+## 02-compiler
+
+### complier components
+
+    - front end
+        - lexical analyzer
+            - 어휘 분석기
+            - token
+        - syntax analyzer
+            - 구문 분석기
+            - syntax tree
+        - semantic analyzer
+            - 의미 분석기
+            - intermediate representation
+    - back end
+        - code generator
+            - 코드 생성기
+            - asseble code + optimization
+        - assembler
+            - 어셈블러
+            - machine code
+
+## 어희, 구문 분석
+
+    - 문자열 형태로 존재하는 소스코드를 의미 있는 문자 혹은 문자열 조각(토큰)으로 변환(예약어, 상수, 변수, 연산자 등)
+    - 각 토큰을 구문 트리(syntax tree)로 변환하며 이 과정에서 문법 오류 검출
+
+## 추상 구문 트리
+
+    - 특정 프로그래밍 언어로 작성된 프로그램 소스 코드를 각각 의미별로 분리하여 구조화
+
+### 의미 분석 및 중간 표현(IR) 생성
+
+    - 예약어 등 코드의 의미에 따라 더 필요한 정보를 유추하거나 분석
+    - 자료형 검사 과정 표함
+    - 항, 표현식, 구문 그리고 평가
+    - 특정 언어에 종속되지 않는 중간언어로 변환해 기계어 생성 준비
+    - 경우에 따라 다른 언어로 변환도 가능
+
+### 코드 생성 및 최적화
+
+    - IR로부터 어셈블리어 등 기계어에 대응될 수 있는 쉬운 명령어 연속으로 변환
+    - 기계어 변환에 앞서 불필요한 코드를 제거하는 등 최적화 작업 실시
+        - 불필요한 연산 제거
+            - 변수에 대한 의존관계 분석
+            - 불필요한 상수연산을 결과로 대체
+            - 반복문 내부 불필요 코드 제거
+        - 함수 호출이 필요 없도록 inline화
+            - 언어 문법으로 존재하지만 보통은 컴파일러가 자동으로 처리
+
+### 기계어로 변환
+
+    - 어섬블리로 변환된 코드를 실제 CPU가 인식할 수 있는 기계어로 변환
+    - 같은 어셈블리 코드를 x86, ARM 등 다양한 CPU에 맞춰 변환 가능
+        - 실행 파일이란 CPU가 인식하고 정해진 연산을 수행할 수 있는 명령들의 연속된 유한 집합체
+        - 기계는 연속된 명령어 집합에서 명령을 하나씩 가져와 연산
+        - 명령의 연속된 연산이 곧 실행
+
+## 03-function
+
+### 매개변수 전달 기법
+
+    - call by value
+        - 스택에 값 복사
+    - call by address
+        - 복사하는 값이 메모리의 주소
+    - call by reference
+        - 포인터로 구현
+
+### 스택 프레임
+
+    - 스택 메모리 주소는 0번을 향해 증가
+    - 지역변수는 선언한 순서로 push
+    - 배열은 0번 요소가 상단에 배치
+    - 매개변소는 오른쪽부터 스택에 push
+    - 스코프 단위로 끊어서 표시(함수는 별도 단락)
+    - 함수 반환 시 해당 함수가 사용한 스택 메모리는 삭제
+    - 전역, 정적 변수는 스택을 사용하지 않음
+    - 포인터는 별도로 표시
+    - 함수 호출 시 callee 함수가 사용할 스택 메모리의 크기 결정
+        - compile time
+    - 연결된 실행 흐름마다 스택 필요 여부
+        - 각 문맥마다 스택이 개별화 되어야함
+
+### 함수 호출 규약
+
+    - 함수 호출로 증가한 스택 메모리 사용 및 관리에 관련된 규칙
+        - __cdecl
+            - 호출자가 스택 정리
+        - __stdcall
+            - 피호출자가 스택 정리
+        - __fastcall
+            - 매개변수에 레지스터 사용
+
+## 04-file-io
+
+### text and binary
+
+    - 텍스트는 바이너리의 일종
+        - ASCII 코드가 정수로 해석될 수 있는것과 같은 원리
+
+## 05-variable
+
+## 06-advanced-function
+
+## 07-multi-thread
+
+## 08-libaray
+
+## 09-security
