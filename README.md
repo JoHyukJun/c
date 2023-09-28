@@ -13,23 +13,23 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/JoHyukJun/c-labs">
+  <a href="https://github.com/JoHyukJun/c">
     <img src="images/logo.png" alt="Logo" width="360" height="360">
   </a>
 
-  <h3 align="center">c-labs</h3>
+  <h3 align="center">c</h3>
 
   <p align="center">
     The C Programming Project.
     <br />
-    <a href="https://github.com/JoHyukJun/c-labs"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/JoHyukJun/c"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/JoHyukJun/c-labs">View Project</a>
+    <a href="https://github.com/JoHyukJun/c">View Project</a>
     ·
-    <a href="https://github.com/JoHyukJun/c-labs/issues">Report Bug</a>
+    <a href="https://github.com/JoHyukJun/c/issues">Report Bug</a>
     ·
-    <a href="https://github.com/JoHyukJun/c-labs/issues">Request Feature</a>
+    <a href="https://github.com/JoHyukJun/c/issues">Request Feature</a>
   </p>
 </div>
 
@@ -66,7 +66,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://github.com/JoHyukJun/c-labs)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/JoHyukJun/c)
 
 This project is for learning the c language and for deep exploration of system programming.
 
@@ -109,7 +109,7 @@ Perform the following procedure to install the required package.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/JoHyukJun/c-labs.git
+   git clone https://github.com/JoHyukJun/c.git
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -119,7 +119,7 @@ Perform the following procedure to install the required package.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-_For more examples, please refer to the [Documentation](https://github.com/JoHyukJun/c-labs)_
+_For more examples, please refer to the [Documentation](https://github.com/JoHyukJun/c)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -131,7 +131,7 @@ _For more examples, please refer to the [Documentation](https://github.com/JoHyu
 - [x] system-programming
 - [x] advanced-c
 
-See the [open issues](https://github.com/JoHyukJun/c-labs/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/JoHyukJun/c/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -182,7 +182,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 JO HYUK JUN - hyukzuny@gmail.com
 
-Project Link: [https://github.com/JoHyukJun/c-labs](https://github.com/JoHyukJun/c-labs)
+Project Link: [https://github.com/JoHyukJun/c](https://github.com/JoHyukJun/c)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -200,18 +200,18 @@ Project Link: [https://github.com/JoHyukJun/c-labs](https://github.com/JoHyukJun
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/JoHyukJun/c-labs.svg?style=for-the-badge
-[contributors-url]: https://github.com/JoHyukJun/c-labs/graphs/contributors
-[activity-shield]: https://img.shields.io/github/commit-activity/m/JoHyukJun/c-labs.svg?style=for-the-badge
-[activity-url]: https://github.com/JoHyukJun/c-labs/pulse
-[forks-shield]: https://img.shields.io/github/forks/JoHyukJun/c-labs.svg?style=for-the-badge
-[forks-url]: https://github.com/JoHyukJun/c-labs/network/members
-[stars-shield]: https://img.shields.io/github/stars/JoHyukJun/c-labs.svg?style=for-the-badge
-[stars-url]: https://github.com/JoHyukJun/c-labs/stargazers
-[issues-shield]: https://img.shields.io/github/issues/JoHyukJun/c-labs.svg?style=for-the-badge
-[issues-url]: https://github.com/JoHyukJun/c-labs/issues
-[license-shield]: https://img.shields.io/github/license/JoHyukJun/c-labs.svg?style=for-the-badge
-[license-url]: https://github.com/JoHyukJun/c-labs/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/JoHyukJun/c.svg?style=for-the-badge
+[contributors-url]: https://github.com/JoHyukJun/c/graphs/contributors
+[activity-shield]: https://img.shields.io/github/commit-activity/m/JoHyukJun/c.svg?style=for-the-badge
+[activity-url]: https://github.com/JoHyukJun/c/pulse
+[forks-shield]: https://img.shields.io/github/forks/JoHyukJun/c.svg?style=for-the-badge
+[forks-url]: https://github.com/JoHyukJun/c/network/members
+[stars-shield]: https://img.shields.io/github/stars/JoHyukJun/c.svg?style=for-the-badge
+[stars-url]: https://github.com/JoHyukJun/c/stargazers
+[issues-shield]: https://img.shields.io/github/issues/JoHyukJun/c.svg?style=for-the-badge
+[issues-url]: https://github.com/JoHyukJun/c/issues
+[license-shield]: https://img.shields.io/github/license/JoHyukJun/c.svg?style=for-the-badge
+[license-url]: https://github.com/JoHyukJun/c/blob/master/LICENSE
 [product-screenshot]: images/screenshot.png
 [C]: https://img.shields.io/badge/c-000000?style=for-the-badge&logo=c&logoColor=white
 [C-url]: https://en.cppreference.com/w/
