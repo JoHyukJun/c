@@ -83,6 +83,7 @@ Here's why:
 
 * [![C][C]][C-url]
 * [![Unix][Unix]][Unix-url]
+* [![Bash][Bash]][Bash-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -193,6 +194,7 @@ Project Link: [https://github.com/JoHyukJun/c](https://github.com/JoHyukJun/c)
 
 * [C](https://en.cppreference.com/w/)
 * [Unix](https://www.opengroup.org/membership/forums/platform/unix/)
+* [Bash](https://www.gnu.org/software/bash/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -217,3 +219,5 @@ Project Link: [https://github.com/JoHyukJun/c](https://github.com/JoHyukJun/c)
 [C-url]: https://en.cppreference.com/w/
 [Unix]: https://img.shields.io/badge/unix-000000?style=for-the-badge&logo=unix&logoColor=white
 [Unix-url]: https://www.opengroup.org/membership/forums/platform/unix
+[Bash]: https://img.shields.io/badge/bash-000000?style=for-the-badge&logo=bash&logoColor=white
+[Bash-rul]: https://www.gnu.org/software/bash/
