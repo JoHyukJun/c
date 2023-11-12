@@ -220,4 +220,4 @@ Project Link: [https://github.com/JoHyukJun/c](https://github.com/JoHyukJun/c)
 [Unix]: https://img.shields.io/badge/unix-000000?style=for-the-badge&logo=unix&logoColor=white
 [Unix-url]: https://www.opengroup.org/membership/forums/platform/unix
 [Bash]: https://img.shields.io/badge/bash-000000?style=for-the-badge&logo=bash&logoColor=white
-[Bash-rul]: https://www.gnu.org/software/bash/
+[Bash-url]: https://www.gnu.org/software/bash/
