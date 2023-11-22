@@ -9,11 +9,11 @@ int main(void)
     scanf("%d", &no);
 
     if (no == 0)
-        puts("0\n");
+        puts("0");
     else if (no > 0)
-        puts("+\n");
+        puts("+");
     else if (no < 0)
-        puts("-\n");
+        puts("-");
     
     return 0;
 }
