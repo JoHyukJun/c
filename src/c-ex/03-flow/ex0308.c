@@ -3,7 +3,7 @@
 
 int main(void)
 {
-    int n1, n2, n3, min;
+    int n1, n2, n3, n4, max;
 
     puts("input 3 number.");
     printf("n1 : ");
@@ -12,13 +12,16 @@ int main(void)
     scanf("%d", &n2);
     printf("n3 : ");
     scanf("%d", &n3);
+    printf("n4 : ");
+    scanf("%d", &n4);
 
-    min = n1;
+    max = n1;
 
-    if (n2 < min) min = n2;
-    if (n3 < min) min = n3;
+    if (n2 > min) max = n2;
+    if (n3 > min) max = n3;
+    if (n4 > min) max = n4;
 
-    printf("min : %d \n", min);
+    printf("max : %d \n", max);
 
     return 0;
 }
