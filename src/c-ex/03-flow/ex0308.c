@@ -5,7 +5,7 @@ int main(void)
 {
     int n1, n2, n3, n4, max;
 
-    puts("input 3 number.");
+    puts("input 4 number.");
     printf("n1 : ");
     scanf("%d", &n1);
     printf("n2 : ");
