@@ -9,7 +9,7 @@
 int main(void) {
     int a, b, c;
 
-    puts("input 2 number.");
+    puts("input 3 number.");
     printf("a: ");
     scanf("%d", &a);
     printf("b: ");
@@ -18,7 +18,7 @@ int main(void) {
     scanf("%d", &c);
 
     if (a == b && b == c)
-        puts("2 or 3 numbers same.");
+        puts("3 numbers same.");
 
     return 0;
 }

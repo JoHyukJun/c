@@ -9,7 +9,7 @@
 int main(void) {
     int a, b, c, d, max;
 
-    puts("input 2 number.");
+    puts("input 4 number.");
     printf("a: ");
     scanf("%d", &a);
     printf("b: ");
