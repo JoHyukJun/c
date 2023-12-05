@@ -25,5 +25,11 @@ int main(void) {
     if (c > max) max = c;
     if (d > max) max = d;
 
+    int max1, max2;
+
+    max1 = a > b ? a : b;
+    max2 = c > d ? c : d;
+    max = max1 > max2 ? max1 : max2;
+
     return 0;
 }
