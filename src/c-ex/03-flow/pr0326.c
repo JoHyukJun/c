@@ -8,5 +8,31 @@
 
 
 int main(void) {
+    int a, b, c, med;
+
+    puts("input 3 number.");
+    printf("a: ");
+    scanf("%d", &a);
+    printf("b: ");
+    scanf("%d", &b);
+    printf("c: ");
+    scanf("%d", &c);
+
+    if (a >= b)
+        if (b >= c)
+            med = b;
+        else if (a <= c)
+            med = a;
+        else
+            med = c;
+    else if (a > c)
+        med = a;
+    else if (b > c)
+        med = c;
+    else
+        med = b;
+
+    printf("med: %d\n", med);
+
     return 0;
 }
