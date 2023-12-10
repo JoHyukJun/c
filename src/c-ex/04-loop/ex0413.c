@@ -3,7 +3,8 @@
 
 int main(void)
 {
-    int no;
+    int no, temp;
+    int digits;
 
     do {
         printf("input 1 number.");
@@ -13,13 +14,16 @@ int main(void)
             puts("input positive number");
     } while(no <= 0)
 
-    printf("reverse %d: ", no);
+    temp = no;
+    digits = 0;
 
-    while (no > 0)
+    while (temp > 0)
     {
-        printf("%d", no % 10);
-        no /= 10;
+        temp /= 10;
+        digits++;
     }
+
+    printf("digits: %d\n", digits);
 
     return 0;
 }
