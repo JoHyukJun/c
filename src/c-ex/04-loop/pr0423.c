@@ -8,5 +8,21 @@
 
 
 int main(void) {
+    int i = 0;
+    int sum = 0;
+    int no;
+
+    puts("input integer number.");
+
+    do {
+        printf("No.%d : ", ++i);
+        scanf("%d", &no);
+
+        if (no > 0)
+            sum += no * no;
+    } while (no > 0);
+
+    printf("sum: %d\n", sum);
+
     return 0;
 }
