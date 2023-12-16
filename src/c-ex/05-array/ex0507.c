@@ -14,7 +14,7 @@ int main(void) {
 
         if (num < 1 || num > NUMBER)
             printf("\a1~%d: ", NUMBER);
-    } while(num < 1 || num > NUMBER);
+    } while (num < 1 || num > NUMBER);
 
     for (i = 0; i < num; i++) {
         printf("%2d : ", i + 1);
