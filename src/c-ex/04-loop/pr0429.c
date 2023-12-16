@@ -1,7 +1,7 @@
 /*
     - 다음 프로그램 일부의 실행 결과를 나타내라.
     ->
-        ABCABC
+        3 32 41 50 6
 */
 
 
@@ -9,10 +9,11 @@
 
 
 int main(void) {
-    int i;
+    int y = 3;
+    int z = 3;
 
-    for (i = 1; i < 3; i++)
-        printf("ABC");
+    while (y >= 0)
+        printf("%d %d", y--, z++);
 
     return 0;
 }
