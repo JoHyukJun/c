@@ -9,5 +9,17 @@
 
 
 int main(void) {
+    int height, width;
+    int i, j;
+
+    height = 11;
+    width = 12;
+
+    for (i = 1; i <= height; i++) {
+        for (j = 1; j <= width; j++)
+            printf("%d", (i + j - 1) % 10);
+        putchar('\n');
+    }
+
     return 0;
 }

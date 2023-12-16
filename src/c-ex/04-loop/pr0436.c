@@ -7,5 +7,14 @@
 
 
 int main(void) {
+    int n;
+    int i;
+
+    puts("input 1 number.");
+    scanf("%d", &n);
+
+    for (i = 1; i <= n / 10; i++)
+        printf("%d\n", i * 10);
+
     return 0;
 }
