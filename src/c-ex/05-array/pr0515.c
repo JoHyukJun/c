@@ -28,5 +28,18 @@ int main(void) {
 
     printf("%d = %d\n", a[i], sum);
 
+    sum = 0;
+
+    for (i = 0; i < n; i++) {
+        sum += a[i];
+
+        if (i != n - 1)
+            printf("%d + ", a[i]);
+        else
+            printf("%d = ", a[i]);
+    }
+
+    printf("%d\n", sum);
+
     return 0;
 }
