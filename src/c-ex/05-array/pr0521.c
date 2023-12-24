@@ -18,7 +18,7 @@ int main(void) {
         while (1)
         {
             printf("point[%d]: ", i);
-            scanf("%d", point[i]);
+            scanf("%d", &point[i]);
 
             if (point[i] >= 0 && point[i] <= 100)
                 break;

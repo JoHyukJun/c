@@ -19,6 +19,8 @@
 
 int main(void) {
     int point[NUMBER];
+    int count[4] = {0};
+    int idx[4][NUMBER];
     int i;
 
     puts("0 ~ 100 사이의 값을 입력해주세요.");
@@ -27,13 +29,31 @@ int main(void) {
         while (1)
         {
             printf("point[%d]: ", i);
-            scanf("%d", point[i]);
+            scanf("%d", &point[i]);
 
             if (point[i] >= 0 && point[i] <= 100)
                 break;
             puts("\a범위 밖입니다.");
         }
     }
+
+    for (i = 0; i < NUMBER; i++) {
+        int grade = 0;
+
+        if (point[i] >= 80)
+            grade = 3;
+        else if (point[i] >= 70)
+            grade = 2;
+        else if (point[i] >= 60)
+            grade = 1;
+
+        idx[grade][count[grade]++] = i;
+    }
+
+    printf("탈락: "); for (i = 0; i < count[0]; i++) putchar('*'); putchar('\n');
+    printf("가능: "); for (i = 0; i < count[1]; i++) putchar('*'); putchar('\n');
+    printf("양호: "); for (i = 0; i < count[2]; i++) putchar('*'); putchar('\n');
+    printf("우수: "); for (i = 0; i < count[3]; i++) putchar('*'); putchar('\n');
 
     return 0;
 }
