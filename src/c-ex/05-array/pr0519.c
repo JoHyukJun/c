@@ -7,5 +7,20 @@
 
 
 int main(void) {
+    int n = 5;
+    int a[n];
+    int i, j;
+
+    for (i = 0; i < n; i++)
+        a[i] = i;
+
+    for (i = 0; i < n; i++) {
+        printf("a[%d]: ", i);
+
+        for (j = 0; j < a[i]; j++)
+            putchar('*');
+        putchar('\n');
+    }
+
     return 0;
 }

@@ -8,5 +8,31 @@
 
 
 int main(void) {
+    int n = 13;
+    int i, j;
+    int a[n];
+
+    for (i = 0; i < n; i++)
+        a[i] = i;
+
+    int max = a[0];
+
+    for (i = 1; i < n; i++)
+        if (a[i] > max)
+            max = a[i];
+
+    for (i = 0; i < n; i++)
+        printf("%d", i % 10);
+    putchar('\n');
+
+    for (i = 1; i <= max; i++) {
+        for (j = 0; j < n; j++)
+            if (a[j] >= i)
+                putchar('*');
+            else
+                putchar(' ');
+        putchar('\n');
+    }
+
     return 0;
 }
