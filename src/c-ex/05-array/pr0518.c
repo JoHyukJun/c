@@ -7,5 +7,28 @@
 
 
 int main(void) {
+    int n = 5;
+    int a[n];
+    int i;
+
+    for (i = 0; i < n; i++)
+        a[i] = i;
+
+    for (i = 0; i < n; i++) {
+        printf("a[%d]: %d\n", i, a[i]);
+    }
+
+    for (i = 0; i < n / 2; i++) {
+        int temp = a[i];
+        a[i] = a[n - i - 1];
+        a[n - i - 1] = temp;
+    }
+
+    putchar('\n');
+
+    for (i = 0; i < n; i++) {
+        printf("a[%d]: %d\n", i, a[i]);
+    }
+
     return 0;
 }
