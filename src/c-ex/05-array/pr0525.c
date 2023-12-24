@@ -15,5 +15,9 @@ int main(void) {
         for (j = 0; j < n; j++)
             m[i][j] = 0;
 
+    for (i = 0; i < h; i++)
+        for (j = 0; j < w; j++)
+            printf("m[%d][%d]: %d\n", i, j, m[i][j]);
+
     return 0;
 }
