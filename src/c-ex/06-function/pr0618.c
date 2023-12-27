@@ -6,6 +6,16 @@
 #include <stdio.h>
 
 
+int max2(int x, int y) {
+    return (x > y) ? x : y;
+}
+
+int max4(int a, int b, int c, int d) {
+    return max2(max2(a, b), max2(c, d));
+}
+
 int main(void) {
+    printf("max4(1, 2, 3, 4): %d\n", max4(1, 2, 3, 4));
+
     return 0;
 }
