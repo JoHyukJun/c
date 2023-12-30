@@ -1,5 +1,5 @@
 /*
-    - 다음은 x 의 최하위 비트를 1로 만드는 함수다.
+    - 다음은 x 의 최하위 비트를 반전하는 함수다.
 */
 
 
@@ -28,8 +28,8 @@ void print_bits(unsigned x) {
         putchar(((x >> i) & 1U) ? '1' : '0');
 }
 
-unsigned setLSB(unsigned *x) {
-    return *x |= 1;
+unsigned invLSB(unsigned *x) {
+    return *x ^= 1;
 }
 
 int main(void) {
@@ -38,7 +38,7 @@ int main(void) {
     printf("x: "); scanf("%u", &x);
 
     printf("\nx                 : "); print_bits(x);
-    printf("\nsetLSB(x)         : "); print_bits(setLSB(&x));
+    printf("\ninvLSB(x)         : "); print_bits(invLSB(&x));
     printf("\nx                 : "); print_bits(x);
     putchar('\n');
 
