@@ -8,9 +8,10 @@
 #define sqr(x) (x * x)
 #define cube(x) (x * x * x)
 
+
 int main(void) {
-    printf("sqr(3): %d\n", sqr(3));
-    printf("cube(3): %d\n", cube(3));
+    printf("sqr(3):\t\t%d\n", sqr(3));
+    printf("cube(3):\t\t%d\n", cube(3));
 
     return 0;
 }
