@@ -13,6 +13,7 @@ int main(void) {
     int b = 4;
 
     swap_int(a, b);
+    
     printf("swap_int(a, b):a:%d:b:%d\n", a, b);
 
     return 0;
