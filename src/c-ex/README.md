@@ -16,11 +16,11 @@
 
 ## 08 program
 
-## 09 char
+## 09 string
 
 ## 10 pointer
 
-## 11 char pointer
+## 11 string pointer
 
 ## 12 struct
 
