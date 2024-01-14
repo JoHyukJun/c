@@ -33,6 +33,16 @@ void put_stringr(const char s[]) {
         putchar(s[i]);
 }
 
+void rev_string(char s[]) {
+    int i, len = str_length(s);
+
+    for (i = 0; i < len / 2; i++) {
+        char temp = s[i];
+        s[i] = s[len - i - 1];
+        s[len - i - 1] = temp;
+    }
+}
+
 int main(void) {
     char str[256], ch[256];
 
@@ -46,6 +56,12 @@ int main(void) {
 
     printf("str 을 거꾸로 읽으면: ");
     put_stringr(str);
+    putchar('\n');
+
+    rev_string(str);
+
+    printf("str을 반전했습니다. 5번 출력합니다.\n");
+    put_stringn(str, 5);
     putchar('\n');
 
     return 0;
