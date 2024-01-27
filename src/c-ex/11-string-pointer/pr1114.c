@@ -17,6 +17,10 @@ void rev_string(char *s) {
         p--;
 
         while (p > s) {
+            putchar(*p);
+            putchar('\n');
+            putchar(*s);
+            putchar('\n');
             char temp = *p;
             *p-- = *s;
             *s++ = temp;
@@ -25,7 +29,7 @@ void rev_string(char *s) {
 }
 
 int main(void) {
-    char *s1 = "123";
+    char s1[128] = "123";
 
     printf("s1 = \"%s\"\n", s1);
 
