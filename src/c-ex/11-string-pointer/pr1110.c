@@ -21,11 +21,11 @@ char *str_copy(char *d, const char *s) {
 int main(void) {
     char *p = "ABC";
     char s1[10];
-    char s2[10];
+    char *s2;
 
     printf("p = \"%s\"\n", p);
 
-    *s2 = str_copy(s1, p);
+    s2 = str_copy(s1, p);
 
     printf("s1 = \"%s\"\n", s1);
     printf("s2 = \"%s\"\n", s2);
