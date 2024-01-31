@@ -1,4 +1,0 @@
-#
-#   file sync
-#
-59 23 * * 1 sh /Volumes/JO002TSE001/JO002TSE001/jo-drive/dev/git/c-labs/src/sh/cron/jo-freefilesync.sh >> /Volumes/JO002TSE001/JO002TSE001/jo-drive/dev/git/c-labs/src/sh/cron/jo-freefilesync-`date +\%Y\%m\%d`-`date +\%H\%M\%S`.log 2>&1
