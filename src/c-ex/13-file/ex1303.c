@@ -5,6 +5,31 @@
 #define NAME_LEN 100
 
 
+typedef struct {
+    char name[NAME_LEN];
+    double height;
+    double weight;
+} Human;
+
+
+void swap_Human(Human *x, Human *y) {
+    Human temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+void sort_by_height(Human a[], int n) {
+    int i, j;
+
+    for (i = 0; i < n - 1; i++) {
+        for (j = n - 1; j > i; j--) {
+            if (a[j - 1].height > a[j].height) {
+                swap_Human(&a[j - 1], &a[j]);
+            }
+        }
+    }
+}
+
 int main(void) {
     FILE *fp;
     int i, j;
@@ -14,6 +39,8 @@ int main(void) {
     double weight[NUM_MAX];
     double hsum = 0.0;
     double wsum = 0.0;
+
+    Human data[NUM_MAX];
 
     if ((fp = fopen("test.txt", "r")) == NULL) {
         printf("\a파일을 열 수 없습니다.\n");
@@ -50,6 +77,32 @@ int main(void) {
                 }
             }
         }
+
+        for (i = 0; i < number; i++) {
+            printf("%-10s %5.1f %5.1f\n", name[i], height[i], weight[i]);
+        }
+
+        printf("-------------------------\n");
+        printf("평균       %5.1f %5.1f\n", hsum / number, wsum / number);
+        fclose(fp);
+    }
+
+    if ((fp = fopen("test.txt", "r")) == NULL) {
+        printf("\a파일을 열 수 없습니다.\n");
+    }
+    else {
+        for (i = 0; i < NUM_MAX; i++) {
+            if (fscanf(fp, "%s%lf%lf",
+            name[number], &height[number], &weight[number]) != 3) {
+                break;
+            }
+
+            hsum += height[number];
+            wsum += weight[number];
+            number++;
+        }
+
+        sort_by_height(data, number);
 
         for (i = 0; i < number; i++) {
             printf("%-10s %5.1f %5.1f\n", name[i], height[i], weight[i]);
