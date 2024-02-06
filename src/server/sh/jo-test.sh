@@ -3,4 +3,4 @@
 #
 #   test
 #
-echo "TEST"
+echo "TEST SUCCESS"
