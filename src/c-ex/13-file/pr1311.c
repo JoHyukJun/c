@@ -10,7 +10,6 @@ int main(void) {
     FILE *fp;
     int x;
     int a[10];
-    int i;
     char name[FILENAME_MAX];
 
     printf("파일 이름: ");

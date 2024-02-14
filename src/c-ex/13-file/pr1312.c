@@ -10,7 +10,6 @@ int main(void) {
     FILE *fp;
     int x;
     int a[10];
-    int i;
     char name[FILENAME_MAX];
 
     printf("파일 이름: ");
@@ -22,7 +21,6 @@ int main(void) {
     else {
         fread(&x, sizeof(int), 1, fp);
         fread(a, sizeof(int), 10, fp);
-
 
         fclose(fp);
     }
