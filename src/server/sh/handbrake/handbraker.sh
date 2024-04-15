@@ -6,17 +6,18 @@
 #   'sudo ./handbrake.sh /root-path /destination'
 #
 ROOT_PATH=$1
-DESTINATION=$2
 PRESET="./NSFW.json"
 
 while IFS= read -d '' -r ITEM
 do
-    echo $ITEM
+    echo "ITEM: $ITEM"
     FILE=${ITEM##*/}
+    echo "FILE: $FILE"
+    FILE_PATH=${ITEM%/*}
+    echo "FILE_PATH: $FILE_PATH"
     EXT=${ITEM##*.}
+    echo "EXT: $EXT"
     EXT=$(echo $EXT | tr "[:upper:]" "[:lower:]")
-    OUTPUT="$DESTINATION/${FILE%.*}.$EXT"
-    # Create directory
-    [[ -d $DESTINATION ]] || mkdir -p $DESTINATION
+    OUTPUT="$FILE_PATH/${FILE%.*}[hd-cli].$EXT"
     echo "" | HandBrakeCLI -i "$ITEM" -o "$OUTPUT" --preset-import-file $PRESET
 done < <(find "$ROOT_PATH" \( -iname '*.mp4' -or -iname '*.avi'  -or -iname '*.mkv' -or -iname '*.mts' -or -iname '*.mov' \) -print0)
