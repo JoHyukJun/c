@@ -18,6 +18,6 @@ do
     EXT=${ITEM##*.}
     echo "EXT: $EXT"
     EXT=$(echo $EXT | tr "[:upper:]" "[:lower:]")
-    OUTPUT="$FILE_PATH/${FILE%.*}[hd-cli].$EXT"
+    OUTPUT="$FILE_PATH/${FILE%.*}[hb-cli].$EXT"
     echo "" | HandBrakeCLI -i "$ITEM" -o "$OUTPUT" --preset-import-file $PRESET
 done < <(find "$ROOT_PATH" \( -iname '*.mp4' -or -iname '*.avi'  -or -iname '*.mkv' -or -iname '*.mts' -or -iname '*.mov' \) -print0)
