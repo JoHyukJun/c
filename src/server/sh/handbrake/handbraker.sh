@@ -3,7 +3,7 @@
 # By JO HYUK JUN - 2024.04.15
 #
 # Usage :
-#   'sudo ./handbrake.sh /root-path /destination'
+#   'sudo ./handbrake.sh /root-path'
 #
 ROOT_PATH=$1
 PRESET="./NSFW.json"
