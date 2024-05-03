@@ -2,14 +2,14 @@ CC = gcc
 CFLAGS = -I/usr/local/include/libxml2 -lxml2
 LDFALGS = -lc
 
-TARGET = app.out
+TARGET = udc.out
 OBJS = 	main.o xml-parser.o file-handler.o
 
 all: $(TARGET)
 
 $(TARGET) : $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
-	clean
+	rm -f $(OBJS)
 
 main : main.c
 	$(CC) $(CFLAGS) main.c -o main
