@@ -3,6 +3,7 @@
 
 #include "ufc.h"
 #include "xml-parser.h"
+#include "file-handler.h"
 
 int main(void)
 {
@@ -14,6 +15,8 @@ int main(void)
 
     strcpy(nfo_file_list[0].path, "test_path");
     printf("%s", nfo_file_list[0].path);
+
+    jcopy("./test/st/디지몬 어드벤쳐 - E01.모험의 섬.avi", "./test/ds/test.avi");
 
     return 0;
 }
