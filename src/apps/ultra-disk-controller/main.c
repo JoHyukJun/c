@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "ufc.h"
+#include "udc.h"
 #include "xml-parser.h"
 #include "file-handler.h"
 
@@ -9,14 +9,14 @@ int main(void)
 {
     xml_parser(1);
 
-    nfo_file nfo_file_list[128];
+    udc_file udc_file_list[128];
 
-    memset(nfo_file_list, 0x00, sizeof(nfo_file_list));
+    memset(udc_file_list, 0x00, sizeof(udc_file_list));
 
-    strcpy(nfo_file_list[0].path, "test_path");
-    printf("%s\n", nfo_file_list[0].path);
+    strcpy(udc_file_list[0].path, "test_path");
+    printf("%s\n", udc_file_list[0].path);
 
-    jcopy("./test/st/디지몬 어드벤쳐 - E01.모험의 섬.avi", "./test/ds/test.avi");
+    jcopy("/Volumes/JO002TSE001/JO002TSE001/jo-drive/dev/test/st/test.mp4", "/Volumes/JO002TSE001/JO002TSE001/jo-drive/dev/test/ds/test.mp4");
 
     return 0;
 }

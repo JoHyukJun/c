@@ -8,6 +8,8 @@
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
 
+#include "xml-parser.h"
+
 
 void parseActor(xmlDocPtr doc, xmlNodePtr cur) {
     xmlChar *key;
@@ -22,6 +24,7 @@ void parseActor(xmlDocPtr doc, xmlNodePtr cur) {
     }
     return;
 }
+
 
 static void parseDoc(char *docname) {
     xmlDocPtr doc;
@@ -56,53 +59,19 @@ static void parseDoc(char *docname) {
     return;
 }
 
+
 int xml_parser(int number) {
     char nfo_dir_path[128] = "./nfo_files";
     char ext[128] = "nfo";
-    char *docname;
 
-    DIR *dd = NULL;
-	struct dirent *entry = NULL;
-	struct stat buff;
 
-    char tmp_ext[128];
-    char nfo_file[256];
-    char *pos;
+    udc_file udc_file_list[256];
 
-    memset(tmp_ext, 0x00, sizeof(tmp_ext));
-    memset(nfo_file, 0x00, sizeof(nfo_file));
+    memset(udc_file_list, 0x00, sizeof(udc_file_list));
 
-	if ((dd = opendir(nfo_dir_path)) == NULL) {
-        printf("%s 를 열수 없습니다.\n", nfo_dir_path);
+    ultra_finder(nfo_dir_path, ext, &udc_file_list);
 
-        return -1;
-    }
-
-    while ((entry = readdir(dd)) != NULL) {
-        lstat(entry->d_name, &buff);
-
-        if (entry->d_type == DT_DIR) {
-            printf("[디렉토리이름] %s\n", entry->d_name);
-        }
-        else if (entry->d_type == DT_REG) {
-            printf("[파일이름] %s\n", entry->d_name);
-
-            pos = strchr(entry->d_name, '.');
-            strcpy(tmp_ext, pos + 1);
-
-            if (strcmp(tmp_ext, ext) == 0) {
-                printf("[확장자] %s\n", tmp_ext);
-
-                sprintf(nfo_file, "%s/%s", nfo_dir_path, entry->d_name);
-
-                printf("파일위치: %s\n", nfo_file);
-
-                parseDoc(nfo_file);
-            }
-        }
-    }
-
-	closedir(dd);
+    printf("xml_parser udc_file_test: %s", udc_file_list[0].path);
 
     return(1);
 }
