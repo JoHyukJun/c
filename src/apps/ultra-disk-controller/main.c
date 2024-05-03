@@ -14,7 +14,7 @@ int main(void)
     memset(nfo_file_list, 0x00, sizeof(nfo_file_list));
 
     strcpy(nfo_file_list[0].path, "test_path");
-    printf("%s", nfo_file_list[0].path);
+    printf("%s\n", nfo_file_list[0].path);
 
     jcopy("./test/st/디지몬 어드벤쳐 - E01.모험의 섬.avi", "./test/ds/test.avi");
 
