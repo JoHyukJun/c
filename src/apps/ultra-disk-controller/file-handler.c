@@ -14,11 +14,11 @@ int ultra_finder(char *path, char *ext, udc_file *udc_file_list)
     DIR             *dd = NULL;
     struct dirent   *entry = NULL;
     struct stat     buff;
-    char            tmp_ext[128];
+    char            file_ext[16];
     char            *pos;
     int             udc_file_idx;
 
-    memset(tmp_ext, 0x00, sizeof(tmp_ext));
+    memset(file_ext, 0x00, sizeof(file_ext));
     udc_file_idx = 0;
 
     if ((dd = opendir(path)) == NULL) {
@@ -37,15 +37,15 @@ int ultra_finder(char *path, char *ext, udc_file *udc_file_list)
             printf("[파일이름] %s\n", entry->d_name);
 
             pos = strchr(entry->d_name, '.');
-            strcpy(tmp_ext, pos + 1);
+            strcpy(file_ext, pos + 1);
 
-            if (strcmp(tmp_ext, ext) == 0) {
-                printf("[확장자] %s\n", tmp_ext);
+            if (strcmp(file_ext, ext) == 0) {
+                printf("[확장자] %s\n", file_ext);
 
-                sprintf(udc_file_list[udc_file_idx].path, "%s/%s", path, entry->d_name);
+                sprintf(udc_file_list[udc_file_idx].path, "%s/", path);
+                strcpy(udc_file_list[udc_file_idx].file_name, entry->d_name);
+                strcpy(udc_file_list[udc_file_idx].ext, file_ext);
                 udc_file_list[udc_file_idx].type = VALID_FILE;
-
-                printf("파일위치: %s\n", udc_file_list[udc_file_idx].path);
 
                 udc_file_idx += 1;
             }
