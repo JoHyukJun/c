@@ -61,17 +61,31 @@ static void parseDoc(char *docname) {
 
 
 int xml_parser(int number) {
-    char nfo_dir_path[128] = "./nfo_files";
-    char ext[128] = "nfo";
+    char        nfo_dir_path[128] = "./nfo_files";
+    char        ext[128] = "nfo";
+    udc_file    udc_file_list[256];
+    int         udc_file_idx;
+    int         udc_file_list_length;
 
+    udc_file_idx = 0;
 
-    udc_file udc_file_list[256];
+    udc_file_list_length = init_udc_file_list(udc_file_list, sizeof(udc_file_list));
 
-    memset(udc_file_list, 0x00, sizeof(udc_file_list));
+    if (ultra_finder(nfo_dir_path, ext, udc_file_list) < 0) {
+        printf("[ERR]\n");
 
-    ultra_finder(nfo_dir_path, ext, &udc_file_list);
+        return (-1);
+    }
 
-    printf("xml_parser udc_file_test: %s", udc_file_list[0].path);
+    printf("xml_parser udc_file_test: %s\n", udc_file_list[0].path);
+
+    for (udc_file_idx = 0; udc_file_idx < udc_file_list_length; udc_file_idx++) {
+        if (udc_file_list[udc_file_idx].type == NONE) {
+            break;
+        }
+
+        parseDoc(udc_file_list[udc_file_idx].path);
+    }
 
     return(1);
 }

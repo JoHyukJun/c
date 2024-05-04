@@ -11,7 +11,7 @@ int main(void)
 
     udc_file udc_file_list[128];
 
-    memset(udc_file_list, 0x00, sizeof(udc_file_list));
+    init_udc_file_list(udc_file_list, sizeof(udc_file_list));
 
     strcpy(udc_file_list[0].path, "test_path");
     printf("%s\n", udc_file_list[0].path);
@@ -20,4 +20,3 @@ int main(void)
 
     return 0;
 }
-

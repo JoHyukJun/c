@@ -3,7 +3,7 @@ CFLAGS = -I/usr/local/include/libxml2 -lxml2
 LDFALGS = -lc
 
 TARGET = udc.out
-OBJS = 	main.o xml-parser.o file-handler.o
+OBJS = 	main.o xml-parser.o file-handler.o udc.o
 
 all: $(TARGET)
 
@@ -19,6 +19,9 @@ xml-parser : xml-parser.c
 
 file-handler : file-handler.c
 	$(CC) $(CFLAGS) -o file-handler file-handler.c
+
+udc : udc.c
+	$(CC) $(CFLAGS) -o udc udc.c
 
 .c.o :
 	$(CC) $(CFLAGS) -c -o $@ $<

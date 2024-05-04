@@ -43,6 +43,7 @@ int ultra_finder(char *path, char *ext, udc_file *udc_file_list)
                 printf("[확장자] %s\n", tmp_ext);
 
                 sprintf(udc_file_list[udc_file_idx].path, "%s/%s", path, entry->d_name);
+                udc_file_list[udc_file_idx].type = VALID_FILE;
 
                 printf("파일위치: %s\n", udc_file_list[udc_file_idx].path);
 
