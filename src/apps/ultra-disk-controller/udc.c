@@ -34,7 +34,7 @@ void print_udc_file_list(const udc_file *udc_file_list, int udc_file_list_size)
         if (udc_file_list[udc_file_idx].type == NONE) {
             break;
         }
-        
+
         printf("===================================\n");
         printf("udc_file [index:%d]\n", udc_file_idx);
         printf("udc_file [type:%d]\n", udc_file_list[udc_file_idx].type);

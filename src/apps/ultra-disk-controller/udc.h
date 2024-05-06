@@ -4,6 +4,7 @@
 #define NONE            0x000001
 #define VALID_FILE      0x000002
 #define PATH            0x000003
+#define MAX_UDC         2048
 
 
 struct _udc_file {

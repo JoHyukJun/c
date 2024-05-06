@@ -64,7 +64,7 @@ int xml_parser(int number) {
     char        nfo_dir_path[128] = "./nfo_files";
     char        ext[16] = "nfo";
     char        docname[256];
-    udc_file    udc_file_list[256];
+    udc_file    udc_file_list[MAX_UDC];
     int         udc_file_idx;
     int         udc_file_list_length;
 
