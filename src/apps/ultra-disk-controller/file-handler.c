@@ -14,12 +14,16 @@ int ultra_finder(char *path, char *ext, udc_file *udc_file_list)
     DIR             *dd = NULL;
     struct dirent   *entry = NULL;
     struct stat     buff;
-    char            tmp_ext[128];
+    char            file_ext[16];
     char            *pos;
-    int             udc_file_idx;
+    char            sub_path[1024];
+    udc_file        fudc_file;
+    int             udc_file_idx = 0;
 
-    memset(tmp_ext, 0x00, sizeof(tmp_ext));
-    udc_file_idx = 0;
+    memset(file_ext, 0x00, sizeof(file_ext));
+    memset(sub_path, 0x00, sizeof(sub_path));
+
+    udc_file_idx = get_cur_index(udc_file_list, sizeof(udc_file_list));
 
     if ((dd = opendir(path)) == NULL) {
         printf("%s 를 열수 없습니다.\n", path);
@@ -31,20 +35,27 @@ int ultra_finder(char *path, char *ext, udc_file *udc_file_list)
         lstat(entry->d_name, &buff);
 
         if (entry->d_type == DT_DIR) {
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+                continue;
+
+            sprintf(sub_path, "%s/%s", path, entry->d_name);
             printf("[디렉토리이름] %s\n", entry->d_name);
+
+            ultra_finder(sub_path, ext, udc_file_list);
         }
         else if (entry->d_type == DT_REG) {
             printf("[파일이름] %s\n", entry->d_name);
 
             pos = strchr(entry->d_name, '.');
-            strcpy(tmp_ext, pos + 1);
+            strcpy(file_ext, pos + 1);
 
-            if (strcmp(tmp_ext, ext) == 0) {
-                printf("[확장자] %s\n", tmp_ext);
+            if (strcmp(file_ext, ext) == 0) {
+                printf("[확장자] %s\n", file_ext);
 
-                sprintf(udc_file_list[udc_file_idx].path, "%s/%s", path, entry->d_name);
-
-                printf("파일위치: %s\n", udc_file_list[udc_file_idx].path);
+                sprintf(udc_file_list[udc_file_idx].path, "%s/", path);
+                strcpy(udc_file_list[udc_file_idx].file_name, entry->d_name);
+                strcpy(udc_file_list[udc_file_idx].ext, file_ext);
+                udc_file_list[udc_file_idx].type = VALID_FILE;
 
                 udc_file_idx += 1;
             }
