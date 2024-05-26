@@ -44,3 +44,26 @@ void print_udc_file_list(const udc_file *udc_file_list, int udc_file_list_size)
         printf("===================================\n");
     }
 }
+
+
+int get_cur_index(const udc_file *udc_file_list, int udc_file_list_size)
+{
+    int         retval = 0;
+    int         udc_file_idx, udc_file_list_length;
+
+    udc_file_list_length = 0;
+
+    udc_file_list_length = udc_file_list_size / SZ_UDC_FILE;
+
+    for (udc_file_idx = 0; udc_file_idx < udc_file_list_length; udc_file_idx++) {
+        if (udc_file_list[udc_file_idx].type == NONE) {
+            break;
+        }
+
+        retval += 1;
+    }
+
+    printf("get_cur_idx: %d\n", retval);
+
+    return retval;
+}

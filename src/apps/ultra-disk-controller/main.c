@@ -22,7 +22,6 @@ int main(void)
     strcpy(video_ext, "mp4");
 
     ultra_finder(source_path, video_ext, video_file_list);
-    jfinder(source_path, video_ext, video_file_list);
 
     print_udc_file_list(video_file_list, sizeof(video_file_list));
 

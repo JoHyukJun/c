@@ -8,31 +8,6 @@
 
 #include "file-handler.h"
 
-FILE        *file_listp;
-int     udc_file_idx = 0;
-
-
-int jfinder(char *path, char *ext, udc_file *udc_file_list)
-{
-    char        list_path[FILENAME_MAX];
-
-    memset(list_path, 0x00, sizeof(list_path));
-
-    strcpy(list_path, "./tmp/file_list.txt");
-
-    if ((file_listp = fopen(list_path, "w+")) == NULL) {
-        printf("\a복사할 내용이 있는 파일을 열 수 없습니다.");
-
-        return (-1);
-    }
-    else {
-        ultra_finder(path, ext, udc_file_list);
-    }
-
-    fclose(file_listp);
-
-    return (1);
-}
 
 int ultra_finder(char *path, char *ext, udc_file *udc_file_list)
 {
@@ -43,9 +18,12 @@ int ultra_finder(char *path, char *ext, udc_file *udc_file_list)
     char            *pos;
     char            sub_path[1024];
     udc_file        fudc_file;
+    int             udc_file_idx = 0;
 
     memset(file_ext, 0x00, sizeof(file_ext));
     memset(sub_path, 0x00, sizeof(sub_path));
+
+    udc_file_idx = get_cur_index(udc_file_list, sizeof(udc_file_list));
 
     if ((dd = opendir(path)) == NULL) {
         printf("%s 를 열수 없습니다.\n", path);
@@ -79,21 +57,12 @@ int ultra_finder(char *path, char *ext, udc_file *udc_file_list)
                 strcpy(udc_file_list[udc_file_idx].ext, file_ext);
                 udc_file_list[udc_file_idx].type = VALID_FILE;
 
-                sprintf(fudc_file.path, "%s/", path);
-                strcpy(fudc_file.file_name, entry->d_name);
-                strcpy(fudc_file.ext, file_ext);
-                fudc_file.type = VALID_FILE;
-
-                fwrite(fudc_file, sizeof(udc_file), 1, file_listp);
-
                 udc_file_idx += 1;
             }
         }
     }
 
 	closedir(dd);
-
-    udc_file_idx = 0;
 
     return (1);
 }
