@@ -66,3 +66,69 @@
                 - 실패: -1
 
 ## Message queue
+
+    - message 기반 communication
+        - not byte stream
+        - 하나의 메시지는 하나의 블록
+    - FIFO(First In First Out) 를 이용한 message queue
+    - unrelated process 간에도 사용 가능
+    - Process ----> send ----> message queue ----> recv ----> Process
+    - SysV Message Queue
+        - message 기반 communication
+            - message 별 message type 지원
+        - message queue
+            - fifo
+            - ipc key 기반 id(not fd)
+        - management tools
+            - ipcs: ipc object 관련 정보 조회
+            - ipcrm: ipc object 삭제
+        - int msgget(key_t key, int msgflg);
+            - message queue id 를 구함
+            - 옵션에 따라 생성도 가능
+            - key: ipc object key or IPC_PRIVATE
+                - IPC_PRIVATE: 지정 시 새로운 message queue id 생성
+            - msgflg: permission + mask
+                - IPC_CREAT: key 에 매치되는 message queue id 없으면 생성
+                - IPC_EXCL: key 에 매치되는 message queue id 가 있으면 에러 발생
+            - return
+                - 성공: message queue id
+                - 실패: -1
+        - key_t ftok(const char *pathname, int proj_id);
+            - filepath 와 proj_id 를 조합하여 key 값을 구함
+            - unique 보장은 안됨
+            - pathname
+                - 조합할 파일 경로
+                - 파일이 존재해야 하고, readable 해야 함
+            - proj_id
+                - 임의의 project id
+            - return
+                - 성공: ipc key
+                - 실패: -1
+        - int msgsnd(int msqid, const void *msgp, size_t msgsz, int msgflg);
+            - message 전송
+            - msqid: message queue id
+            - msgq: 전송할 메시지 버퍼
+            - msgsz: 전송 메시지 자이즈(mtext의 길이)
+            - msgflg
+                - IPC_NOWAIT: non-blocking I/O
+            - return
+                - 성공: 0
+                - 실패: -1
+        - ssize_t msgrcv(int msqid, void *msgp, size_t msgsz, long msgtyp, int msgflg);
+            - msqid: message queue id
+            - msgb: message 수신 버퍼
+            - msgsz: 최대 수신 길이(mtext len)
+            - msgtyp: 수신할 message type
+                - 0: 첫번째 메시지 수신
+                - 양수: msgtype 에 매치되는 첫번째 메시지 수신
+                - 음수: 지정된 절대값보다 작거나 같은 msgtype 에 매치되는 첫번째 메시지 수신
+            - msgflg
+                - IPC_NOWAIT: non-blocking I/O
+                - MSG_COPY
+                    - n 번째 메시지를 복사해서 수신(msgtyp 이 index로 사용)
+                    - IPC_NOWAIT 와 같이 사용
+                - MSG_EXCEPT: msgtyp 과 매치되지 않는 메시지를 수신
+                - MSG_NOERROR: 메시지 사이즈가 msgsz 보다 크면 truncate
+            - return
+                - 성공: 실제로 받은 데이터 길이(mtext len)
+                - 실패: -1
