@@ -132,3 +132,14 @@
             - return
                 - 성공: 실제로 받은 데이터 길이(mtext len)
                 - 실패: -1
+    - POSIX Message Queue
+        - Message 기반의 커뮤니케이션
+            - partial read 없음
+            - multiple message read 없음
+        - 하나의 message queue 로 read/write 가능
+        - multi-reader/writer 가능
+        - fiel i/o 기반의 동작
+            - i/o multiplexing 가능
+        - message 우선순위 적용 가능
+        - message notification 가능
+        - link 시 -lrt 추가
