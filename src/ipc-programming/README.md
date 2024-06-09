@@ -143,3 +143,95 @@
         - message 우선순위 적용 가능
         - message notification 가능
         - link 시 -lrt 추가
+        - mqd_t mq_open(cosnt char *name, int oflag);
+            - mq open
+        - mqd_t mq_open(const char *name, int oflag, mode_t mode, struct mq_attr *attr);
+            - mq 생성하여 열기
+            - name: mq name(반드시 / 로 시작해야함)
+            - oflag
+                - mast of O_RDONLY, O_WRONLY, O_RDWR, O_CREAT, O_CLOEXEC, O_EXCL, O_NONBLOCK
+            - mode
+                - permission
+            - attr
+                - 속성 지정
+            - return
+                - 성공: message queue descriptor
+                - 실패: -1
+        - int mq_close(mqd_t mqdes);
+            - mq close
+            - mqdes
+                - message queue descriptor
+            - return
+                - 성공: 0
+                - 실패: -1
+        - int mq_unlink(const char *name);
+            - mq 삭제
+            - name: message queue descriptor name
+            - return
+                - 성공: 0
+                - 실패: -1
+        - int mq_send(mqd_t mqdes, const char *msg_ptr, size_t msg_len, unsigned int msg_prio);
+            - 메시지 전송
+            - mqdes
+                - message queue descriptor
+            - msg_ptr
+                - pointer to send
+            - msg_len
+                - length to send
+            - msg_prio
+                - priority
+                - 0(low) ~ 32768(high)
+            - return
+                - 성공: 0
+                - 실패: -1
+        - ssize_t mq_receive(mqd_t mqdes, char *msg_ptr, size_t msg_len, unsigned int *msg_prio);
+            - 메시지 수신
+            - mqdes
+                - message queue descriptor
+            - msg_ptr
+                - pointer to receive
+            - msg_len
+                - length to receive
+                - attr.mq_msgsize 보다 크거나 같아야 함
+            - msg_prio
+                - priority
+                - 0(low) ~ 32768(high)
+            - return
+                - 성공: 읽은 바이트 수
+                - 실패: -1
+        - int mq_getattr(mqd_t mqdes, struct mq_attr *attr);
+        - int mq_setattr(mqd_t mqdes, const struct mq_attr *newattr, struct mq_attr *oldattr);
+            - struct mq_attr {
+                long mq_flags;  /* flags: 0 or O_NONBLOCK */
+                long mq_maxmsg; /* max of messages on queue */
+                long mq_msgsize; /* mas message size (bytes) */
+                long mq_curmsgs; /* number of messages currently in queue */
+            };
+            - mqdes
+                - message queue descriptor
+            - attr
+                - attribute
+            - return
+                - 성공: 0
+                - 실패: -1
+        - int mq_notify(mqd_t mqdes, const struct sigevent *sevp);
+            - 메시지 notification 설정
+            - mqdes
+                - message queue descriptor
+            - sevp
+                - notification 설정
+                - union sigval {
+                    int sigval_int;
+                    void *sigval_ptr;
+                }
+                - struct sigevent {
+                    int             sigev_notify; /* notification method */
+                    int             sigev_signo; /* notification signal */
+                    union sigval    sigev_value; /* data passed with notification */
+                    void (*sigev_notify_function) (union sigval); /* function used for thread notification (SIGEV_THREAD) */
+                    void *sigev_notify_attributes; /* attributes for notification thread (SIGEV_THREAD) */
+                    pid_t sigev_notify_thread_id; /* id of thread to signal (SIGEV_THREAD_ID) */
+                }
+            - return
+                - 성공: 0
+                - 실패: -1
