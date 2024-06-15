@@ -253,6 +253,12 @@
         - socket 을 어떻게 identifying 하는가
         - socket 에 어떤 방법으로 address 를 부여하는가
         - Unix domain socket(AF_UNIX)
+            - host only socket
+                - 네트워크 통신 안됨
+            - filepath 로 address
+            - 양방향 통신
+            - stream/datagram 모두 신뢰성 보장
+            - file descriptor 전송 가능
         - IPv4 Internet domain socket(AF_INET)
         - IPv6 Internet domain socket(AF_IENT6)
     - type
