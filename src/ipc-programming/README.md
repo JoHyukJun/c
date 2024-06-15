@@ -48,22 +48,24 @@
         - write size 가 PIPE_BUF 보다 작으면 atomic, 크면 interleaved 될 수 있음
             - LINUX PIPE_BUF: 4KB
             - multiple writer 환경에서 유의
-    - Named Pipe(FIFO)
-        - Uni-directional byte stream
-        - 파일 경로가 ID
-            - unrelated process 간에도 사용 가능
-        - FIFO 생성과 open 이 분리되어 있음
-        - open() 시 read-side 와 write-side 가 동기화 됨
-            - 양쪽 모두 open 시도가 있어야 성공
-            - open 시 O_NONBLOCK 이 유용하게 사용될 수 있음
-        - Process ----> write ----> Named Pipe(/tmp/my_fifo) ----> read ----> Process
-        - int mkfifo(const char *pathname, mode_t mode);
-            - named pipe 생성
-            - dpathname: 생성할 named pipe 파일 경로
-            - mode: permission
-            - return
-                - 성공: 0
-                - 실패: -1
+
+## Named Pipe(FIFO)
+
+    - Uni-directional byte stream
+    - 파일 경로가 ID
+        - unrelated process 간에도 사용 가능
+    - FIFO 생성과 open 이 분리되어 있음
+    - open() 시 read-side 와 write-side 가 동기화 됨
+        - 양쪽 모두 open 시도가 있어야 성공
+        - open 시 O_NONBLOCK 이 유용하게 사용될 수 있음
+    - Process ----> write ----> Named Pipe(/tmp/my_fifo) ----> read ----> Process
+    - int mkfifo(const char *pathname, mode_t mode);
+        - named pipe 생성
+        - dpathname: 생성할 named pipe 파일 경로
+        - mode: permission
+        - return
+            - 성공: 0
+            - 실패: -1
 
 ## Message queue
 
@@ -235,3 +237,62 @@
             - return
                 - 성공: 0
                 - 실패: -1
+
+## Socket
+
+    - 컴퓨터 네트워크 상에서 데이터를 교환하는 내부 종점(endpoint) 를 정의하기 위한 추상적인 개념
+    - 두 socket 이 서로 연결되어야 데이터 통신 가능
+    - 각 socket 은 address 가 있어 서로 identifying 가능
+    - interface
+        - 데이터 통신을 위한 애플리케이션 프로그래밍 인터페이스
+        - 애플리케이션이 커널이 서비스하는 tcp/ip network stack 을 이용 가능
+    - ipc on socket
+        - 호스트 전용 도메인(unix domain socket) 혹은 인터넷 도메인 상에서 local address 사용
+        - 양방향 통신
+    - domain 과 type
+        - 모든 socket 은 domain 과 type 을 지정
+    - domain
+        - socket 을 어떻게 identifying 하는가
+        - socket 에 어떤 방법으로 address 를 부여하는가
+        - Unix domain socket(AF_UNIX)
+            - host only socket
+                - 네트워크 통신 안됨
+            - filepath 로 address
+            - 양방향 통신
+            - stream/datagram 모두 신뢰성 보장
+            - file descriptor 전송 가능
+        - IPv4 Internet domain socket(AF_INET)
+        - IPv6 Internet domain socket(AF_IENT6)
+    - type
+        - 어떤 방식으로 데이터를 교환
+        - stream(SOCK_STREAM)
+            - connect-orient
+            - byte stream
+        - datagram(SOCK_DGRAM)
+            - connectionless
+            - unreliable
+
+## Shared Memory
+
+    - 일반 파일 mmap 을 이용한 shared memory
+        - mapped area 를 읽으면 파일에서 내용을 읽음
+        - mapped area 에 쓰면 파일에 씀
+        - 각 프로세스가 파일에 i/o 를 하는 것과 같은 효과
+        - 동일 파일/동일 영역에 대해 mmap()
+        - mmap() 호출 시 flag 에 MAP_SHARED flag 를 포함
+        - 서로 관련되지 않은 프로세스 간에 shared memory 생성 가능
+        - read/write 가 파일 i/o 까지 이어지므로 성능이 안좋음
+    - Annoymous mapping 을 이용한 shared memory
+        - 특정 파일을 지정하지 않고 익명의 파일에 메모리 매핑
+        - malled()ed address
+            - fork() 시 각 프로세스가 별도의 영역을 갖게 됨
+            - fork() 후 share qnfrksmd
+        - annoymous mapped address
+            - fork() 시 각 프로세스가 file descriptor/mapped address 를 공유
+            - fork() 후 share 가능
+        - mmap() 호출 시 flag 에 MAP_SHARED + MAP_ANONYMOUS 포함
+        - mmap() 호출 시 fd 는 -1 로 설정
+        - mmap() 호출 시 offset argument 는 무시됨
+        - 실제 파일에 연결되지 않기 때문에 상대적으로 성능이 좋음
+        - mapping 이후 fork() 된 reloated process 간에만 공유가 가능
+        - /dev/zero 파일에 대해 mmap 하는 것은 annoymous mapping 과 같음
