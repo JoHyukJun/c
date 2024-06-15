@@ -6,7 +6,7 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 
-#define SOCKET_PAHT     "./socket_stream_un"
+#define SOCKET_PAHT     "./socket_datagram_un"
 
 
 static void usage(const char *prog)
