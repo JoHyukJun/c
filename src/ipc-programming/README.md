@@ -235,3 +235,31 @@
             - return
                 - 성공: 0
                 - 실패: -1
+
+## socket
+
+    - 컴퓨터 네트워크 상에서 데이터를 교환하는 내부 종점(endpoint) 를 정의하기 위한 추상적인 개념
+    - 두 socket 이 서로 연결되어야 데이터 통신 가능
+    - 각 socket 은 address 가 있어 서로 identifying 가능
+    - interface
+        - 데이터 통신을 위한 애플리케이션 프로그래밍 인터페이스
+        - 애플리케이션이 커널이 서비스하는 tcp/ip network stack 을 이용 가능
+    - ipc on socket
+        - 호스트 전용 도메인(unix domain socket) 혹은 인터넷 도메인 상에서 local address 사용
+        - 양방향 통신
+    - domain 과 type
+        - 모든 socket 은 domain 과 type 을 지정
+    - domain
+        - socket 을 어떻게 identifying 하는가
+        - socket 에 어떤 방법으로 address 를 부여하는가
+        - Unix domain socket(AF_UNIX)
+        - IPv4 Internet domain socket(AF_INET)
+        - IPv6 Internet domain socket(AF_IENT6)
+    - type
+        - 어떤 방식으로 데이터를 교환
+        - stream(SOCK_STREAM)
+            - connect-orient
+            - byte stream
+        - datagram(SOCK_DGRAM)
+            - connectionless
+            - unreliable
