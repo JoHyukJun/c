@@ -296,3 +296,14 @@
         - 실제 파일에 연결되지 않기 때문에 상대적으로 성능이 좋음
         - mapping 이후 fork() 된 reloated process 간에만 공유가 가능
         - /dev/zero 파일에 대해 mmap 하는 것은 annoymous mapping 과 같음
+    - 둘 이상의 process 간에 공유하는 메모리 공간
+    - unrelated process 간에도 공유 가능
+    - 동기화 메커니즘 필요
+    - SysV shared memory
+    - Posix shared memory
+        - file system 상에 파일 생성없이 shared memory 생성
+            - unrelated process 간에도 공유 가능
+            - file i/o overhead 가 없음
+        - shm id 는 "/shmid" 의 형식이여함
+        - shared memory 의 생성/삭제와 memory mapping 은 별도
+        - 시스템 상의 shared memory 정보는 일반적으로 /dev/shm 에 mount 되어 있음
