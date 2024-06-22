@@ -307,3 +307,19 @@
         - shm id 는 "/shmid" 의 형식이여함
         - shared memory 의 생성/삭제와 memory mapping 은 별도
         - 시스템 상의 shared memory 정보는 일반적으로 /dev/shm 에 mount 되어 있음
+
+## Semaphore
+
+    - 깃발을 이용한 신호 체계
+    - 임계 영역을 보호하기 위한 수단
+        - counting semaphore
+            - semaphore 초기값을 n 으로 설정
+            - n개의 프로세스는 대기(blocking) 없이 접근 가능
+            - (n + 1) 번째 프로세스는 자원이 가능할 때까지 기다려야함(blocking)
+            - semaphore 를 획득한 프로세스가 release 하면 기다리던 프로세스가 깨어나 semaphore 를 획득
+        - binary semaphore
+            - 초기값을 1로 설정한 counting semaphore(mutex)
+            - semaphore 초기값을 1 으로 설정
+            - 오직 하나의 프로세스가 대기(blocking) 없이 접근 가능
+            - 나머지 모든 프로세스는 자원이 가능할 때까지 기다려야함
+            - semaphore 를 획득한 프로세스가 release 하면 기다리던 프로세스가 깨어나 semaphore 를 획득
