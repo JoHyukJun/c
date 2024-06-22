@@ -13,7 +13,7 @@
 
 static void usage(const char *prog)
 {
-    printf("%s (init|get SEM_IDX|release SEM_IDX|wait SEM_IDX)\n", prog);
+    printf("%s (init|view|get SEM_IDX|release SEM_IDX|wait SEM_IDX)\n", prog);
 }
 
 static int init_semaphore(void)
