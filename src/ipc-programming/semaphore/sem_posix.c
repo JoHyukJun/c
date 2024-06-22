@@ -5,6 +5,7 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <semaphore.h>
+#include <time.h>
 
 #define SEM_ID      "/jsem_id"
 
@@ -71,8 +72,8 @@ static int sem_posix_timedw(sem_t *sem)
 {
     struct timespec ts;
 
-    ts.tv_sec = 3;
-    ts.tv_nsec = 0;
+    clock_gettime(CLOCK_REALTIME, &ts);
+	ts.tv_sec += 3;
 
     if (sem_timedwait(sem, &ts) == -1) {
         perror("sem_wait()");
