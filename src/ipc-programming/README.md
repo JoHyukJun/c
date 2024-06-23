@@ -323,3 +323,27 @@
             - 오직 하나의 프로세스가 대기(blocking) 없이 접근 가능
             - 나머지 모든 프로세스는 자원이 가능할 때까지 기다려야함
             - semaphore 를 획득한 프로세스가 release 하면 기다리던 프로세스가 깨어나 semaphore 를 획득
+
+## File Lock
+
+    - file 에 대한 lock mechanism
+        - flock()
+        - fcntl()
+        - flockfile()
+        - 상황에 적한한 lock mechanism 을 적용
+    - 모든 프로세스 적용 여부
+        - advisory locking
+            - locking 하기로 한 프로세스들 간에 locking
+            - 관련 없는 프로세스들은 무시 가능
+        - mandatory locking
+            - 파일에 lock 이 설정되면 모든 프로세스가 적용
+    - Shared lock(reader lock)
+        - exclusive lock 이 잡혀있지 않으면 잡을 수 있음
+        - 여러 프로세스들이 shared lock 을 잡고 있을 수 있음
+    - Exclusive lock
+        - 아무런 lock 이 잡혀있지 않으면 잡을 수 있음
+    - 자동 해제 조건
+        - file close 시 lock 권한 해제
+            - 특정 파일에 대한 여러 fd 중 하나라도 close 되면 lock 권한 해제
+            - 특정 파일에 대한 모든 fd 가 close 되면 lock 권한 해제
+        - process 종료 시 lock 권한 해제
