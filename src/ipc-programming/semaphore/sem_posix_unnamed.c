@@ -88,6 +88,7 @@ static int proc_monitoring(void)
         if (n == 5) break;
     }
 
+    sem_destroy(&log->sem);
     munmap(log, sizeof(struct log_info));
 
     return (0);
