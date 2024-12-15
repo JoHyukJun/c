@@ -1,9 +1,9 @@
-#include "jflib.h"
+#include "filelib.h"
 
 
-int print_test()
+int print_filelib()
 {
-    printf("TEST TEST\n");
+    printf("FILELIB\n");
 
     return 0;
 }

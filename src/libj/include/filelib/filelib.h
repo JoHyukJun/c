@@ -1,5 +1,5 @@
-#ifndef __JFILIB__
-#define __JFILIB__
+#ifndef __FILELIB__
+#define __FILELIB__
 
 #include <stdio.h>
 #include <string.h>
@@ -9,6 +9,6 @@
 #include <unistd.h>
 #include <dirent.h>
 
-int print_test();
+int print_filelib();
 
 #endif

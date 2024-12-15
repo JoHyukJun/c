@@ -6,7 +6,8 @@ int main()
 {
     printf("test.c\n");
 
-    print_test();
+    print_samlib();
+    print_filelib();
 
     return (0);
 }

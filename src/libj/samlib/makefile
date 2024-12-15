@@ -12,7 +12,7 @@ INCLUDE_DIRS = $(shell find $(INCLUDE_DIR) -type d)
 INCLUDE_FLAGS = $(addprefix -I,$(INCLUDE_DIRS))
 
 # Target library name
-LIB_NAME = j.file
+LIB_NAME = j.sam
 LIB_SHARED = $(LIB_DIR)/lib$(LIB_NAME).so
 
 # Source and object files
