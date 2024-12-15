@@ -9,8 +9,7 @@
 #include <unistd.h>
 #include <dirent.h>
 
-#include "jflib.h"
-
-extern int print_test();
+#include "filelib.h"
+#include "samlib.h"
 
 #endif
