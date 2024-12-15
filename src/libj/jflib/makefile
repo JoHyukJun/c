@@ -5,7 +5,11 @@ CC = gcc
 SRC_DIR = ./
 BUILD_DIR = build
 LIB_DIR = ../libobj
-INCLUDE_DIR = include
+INCLUDE_DIR = ../include
+
+# Find all subdirectories in INCLUDE_DIR
+INCLUDE_DIRS = $(shell find $(INCLUDE_DIR) -type d)
+INCLUDE_FLAGS = $(addprefix -I,$(INCLUDE_DIRS))
 
 # Target library name
 LIB_NAME = j
@@ -16,7 +20,7 @@ SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
 
 # Compiler flags
-CFLAGS = -Wall -Wextra -O2 -fPIC -I$(INCLUDE_DIR)
+CFLAGS = -Wall -Wextra -O2 -fPIC -I$(INCLUDE_FLAGS)
 LDFLAGS = -shared
 
 # Default target
