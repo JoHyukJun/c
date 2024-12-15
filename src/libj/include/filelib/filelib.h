@@ -10,5 +10,8 @@
 #include <dirent.h>
 
 int print_filelib();
+int fexist(const char *filename);
+int ferase(const char *filename);
+int fcopy(const char *src_filename, const char *dst_filename);
 
 #endif

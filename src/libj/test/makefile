@@ -2,7 +2,8 @@
 
 LIB_PATH = ../libobj
 LIB_FLAGS = -lj.file \
-		   	-lj.sam
+		   	-lj.sam \
+			-lj.sem
 SRCS = $(wildcard *.c)
 PROGS = $(patsubst %.c,%,$(SRCS))
 CFLAGS = -Wall -Werror -pthread -I$(INCLUDE_FLAGS)
