@@ -95,3 +95,12 @@ const char *dst_filename;
 
     return (1);
 }
+
+int set_seqno_file(filename, seqno)
+const char *filename;
+int seqno;
+{
+    FILE *fp;
+
+
+}

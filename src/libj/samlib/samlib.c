@@ -46,3 +46,72 @@ key_t key;
 
     return (shmid);
 }
+
+int shm_delete(shmid)
+int shmid;
+{
+    if (shmctl(shmid, 0, IPC_RMID) == -1)
+    {
+        perror("shmctl()");
+
+        return (-1);
+    }
+
+    return (0);
+}
+
+int sam_write(shmid, buf, buf_size)
+int shmid;
+char *buf;
+int buf_size;
+{
+    char *shmaddr;
+
+    shmaddr = shmat(shmid, (char *)0, 0);
+
+    if (shmaddr == (char *)-1)
+    {
+        perror("shmat()");
+
+        return (-1);
+    }
+
+    memcpy(shmaddr, buf, buf_size);
+
+    if (shmdt(shmaddr) == -1)
+    {
+        perror("shmdt()");
+
+        return (-1);
+    }
+
+    return (0);
+}
+
+int sam_read(shmid, buf, buf_size)
+int shmid;
+char *buf;
+int buf_size;
+{
+    char *shmaddr;
+
+    shmaddr = shmat(shmid, (char *)0, 0);
+
+    if (shmaddr == (char *)-1)
+    {
+        perror("shmat()");
+
+        return (-1);
+    }
+
+    memcpy(buf, shmaddr, buf_size);
+
+    if (shmdt(shmaddr) == -1)
+    {
+        perror("shmdt()");
+
+        return (-1);
+    }
+
+    return (0);
+}

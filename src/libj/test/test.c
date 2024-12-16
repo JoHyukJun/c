@@ -9,15 +9,26 @@ void print_test()
 
 int main()
 {
-    int t1, t2;
+    int t1;
 
     print_test();
 
-    t2 = sem_create(TEST_SEM_KEY);
-    t1 = sem_open(TEST_SEM_KEY);
+    t1 = sem_create(TEST_SEM_KEY);
 
-    printf("t1: %d\n", t1);
-    printf("t2: %d\n", t2);
+    while(1)
+    {
+        printf("t1: %d\n", t1);
+
+        sem_lock(t1);
+
+        printf("lock\n");
+
+        t1 = sem_create(TEST_SEM_KEY); 
+
+        sem_unlock(t1);
+
+        printf("unlock\n");
+    }
 
     return (0);
 }

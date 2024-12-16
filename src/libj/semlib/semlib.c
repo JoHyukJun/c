@@ -29,6 +29,7 @@ int sem_create(key)
 key_t key;
 {
     int semid;
+    union semun sem_union;
 
     semid = semget(key, SEM_SET_LEN, IPC_CREAT | IPC_EXCL | 0644);
 
@@ -43,6 +44,25 @@ key_t key;
             return (-1);
         }
     }
+    else if (semid == -1)
+    {
+        perror("semget()");
+
+        return (-1);
+    }
+    else
+    {
+        // Initialize the semaphore
+        sem_union.val = 1;
+
+        if (semctl(semid, 0, SETVAL, sem_union) == -1)
+        {
+            perror("semctl()");
+
+            return (-1);
+        }
+    }
+    
 
     return (semid);
 }
@@ -101,7 +121,7 @@ int semid;
 int sem_lock(semid)
 int semid;
 {
-    if (sem_p(semid) < 0)
+    if (sem_v(semid) < 0)
     {
         return (-1);
     }
@@ -112,7 +132,7 @@ int semid;
 int sem_unlock(semid)
 int semid;
 {
-    if (sem_v(semid) < 0)
+    if (sem_p(semid) < 0)
     {
         return (-1);
     }
