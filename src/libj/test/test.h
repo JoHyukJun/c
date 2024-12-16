@@ -11,5 +11,8 @@
 
 #include "filelib.h"
 #include "samlib.h"
+#include "semlib.h"
+
+#define TEST_SEM_KEY 0xE100001
 
 #endif
