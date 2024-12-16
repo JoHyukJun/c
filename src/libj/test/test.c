@@ -2,12 +2,16 @@
 #include "test.h"
 
 
+void print_test()
+{
+    printf("test\n");
+}
+
 int main()
 {
-    printf("test.c\n");
+    print_test();
 
-    print_samlib();
-    print_filelib();
+    sem_open(TEST_SEM_KEY);
 
     return (0);
 }

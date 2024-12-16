@@ -13,14 +13,6 @@ key_t key;
 {
     int semid;
 
-    key = ftok(FTOK_PATH, FTOK_PROJ_ID);
-
-    if (key == -1) {
-        perror("ftok()");
-
-        return (-1);
-    }
-
     semid = semget(key, SEM_SET_LEN, IPC_CREAT | 0644);
 
     if (semid == -1) {
@@ -32,7 +24,18 @@ key_t key;
     return (semid);
 }
 
-int main()
+int sem_create(key)
+key_t key;
 {
-    printf("TEST\n");
+    int semid;
+
+    semid = semget(key, SEM_SET_LEN, IPC_CREAT | IPC_EXCL | 0644);
+
+    if (semid == -1) {
+        perror("semget()");
+
+        return (-1);
+    }
+
+    return (semid);
 }

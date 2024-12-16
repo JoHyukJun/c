@@ -8,9 +8,7 @@
 #include <sys/ipc.h>
 #include <sys/sem.h>
 
-#define FTOK_PATH           "./tmp"
-#define FTOK_PROJ_ID        'semj'
-#define SEM_SET_LEN         2
+#define SEM_SET_LEN         1
 
 int print_semlib();
 int sem_open(key_t key);
