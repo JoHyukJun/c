@@ -39,3 +39,71 @@ key_t key;
 
     return (semid);
 }
+
+int sem_delete(semid)
+int semid;
+{
+    if (semctl(semid, 0, IPC_RMID) == -1) {
+        perror("semctl()");
+
+        return (-1);
+    }
+
+    return (0);
+}
+
+int sem_v(semid)
+int semid;
+{
+    struct sembuf sb;
+
+    sb.sem_num = 0;
+    sb.sem_op = 1;
+    sb.sem_flg = SEM_UNDO;
+
+    if (semop(semid, &sb, 1) == -1) {
+        perror("semop()");
+
+        return (-1);
+    }
+
+    return (0);
+}
+
+int sem_p(semid)
+int semid;
+{
+    struct sembuf sb;
+
+    sb.sem_num = 0;
+    sb.sem_op = -1;
+    sb.sem_flg = SEM_UNDO;
+
+    if (semop(semid, &sb, 1) == -1) {
+        perror("semop()");
+
+        return (-1);
+    }
+
+    return (0);
+}
+
+int sem_lock(semid)
+int semid;
+{
+    if (sem_p(semid) < 0) {
+        return (-1);
+    }
+
+    return (0);
+}
+
+int sem_unlock(semid)
+int semid;
+{
+    if (sem_v(semid) < 0) {
+        return (-1);
+    }
+
+    return (0);
+}
