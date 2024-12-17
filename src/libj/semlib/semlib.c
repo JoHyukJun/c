@@ -33,22 +33,25 @@ key_t key;
 
     semid = semget(key, SEM_SET_LEN, IPC_CREAT | IPC_EXCL | 0644);
 
-    if (semid == -1 && errno == EEXIST)
+    if (semid < 0)
     {
-        semid = semget(key, SEM_SET_LEN, 0);
+        if (errno == EEXIST)
+        {
+            semid = semget(key, SEM_SET_LEN, 0);
 
-        if (semid == -1)
+            if (semid < 0)
+            {
+                perror("semget()");
+
+                return (-1 * errno);
+            }
+        }
+        else
         {
             perror("semget()");
 
-            return (-1);
+            return (-1 * errno);
         }
-    }
-    else if (semid == -1)
-    {
-        perror("semget()");
-
-        return (-1);
     }
     else
     {
@@ -59,10 +62,9 @@ key_t key;
         {
             perror("semctl()");
 
-            return (-1);
+            return (-1 * errno);
         }
     }
-    
 
     return (semid);
 }
@@ -74,7 +76,7 @@ int semid;
     {
         perror("semctl()");
 
-        return (-1);
+        return (-1 * errno);
     }
 
     return (0);
@@ -93,7 +95,7 @@ int semid;
     {
         perror("semop()");
 
-        return (-1);
+        return (-1 * errno);
     }
 
     return (0);
@@ -112,7 +114,7 @@ int semid;
     {
         perror("semop()");
 
-        return (-1);
+        return (-1 * errno);
     }
 
     return (0);
