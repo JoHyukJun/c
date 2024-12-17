@@ -81,3 +81,53 @@ char *buf;
 
     return (sent_size);
 }
+
+int tcp_recv_size(sockfd, buf, size)
+int sockfd;
+char *buf;
+int size;
+{
+    int recv_size;
+
+    recv_size = recv(sockfd, buf, size, 0);
+
+    if (recv_size == -1)
+    {
+        perror("recv()");
+
+        return (-1);
+    }
+
+    return (recv_size);
+}
+
+int tcp_recv(sockfd, buf)
+int sockfd;
+char *buf;
+{
+    int recv_size;
+
+    recv_size = recv(sockfd, buf, 1024, 0);
+
+    if (recv_size == -1)
+    {
+        perror("recv()");
+
+        return (-1);
+    }
+
+    return (recv_size);
+}
+
+int tcp_close(sockfd)
+int sockfd;
+{
+    if (close(sockfd) == -1)
+    {
+        perror("close()");
+
+        return (-1);
+    }
+
+    return (0);
+}
