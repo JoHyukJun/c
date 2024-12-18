@@ -96,11 +96,76 @@ const char *dst_filename;
     return (1);
 }
 
-int set_seqno_file(filename, seqno)
+int set_seqnof(filename, seqno)
 const char *filename;
-int seqno;
+char *seqno;
+{
+    FILE *fp;
+    int i_seqno;
+
+    if ((fp = fopen(filename, "r+")) == NULL) {
+        perror("fopen()");
+
+        return (-1);
+    }
+
+    i_seqno = atoi(seqno);
+    fprintf(fp, "%d", i_seqno);
+
+    fclose(fp);
+
+    return (1);
+}
+
+int get_seqnof(filename, seqno)
+const char *filename;
+char *seqno;
 {
     FILE *fp;
 
+    if ((fp = fopen(filename, "r")) == NULL) {
+        perror("fopen()");
 
+        return (-1);
+    }
+
+    fscanf(fp, "%s", seqno);
+
+    fclose(fp);
+
+    return (1);
+}
+
+int get_filesize(filename, filesize)
+const char *filename;
+long *filesize;
+{
+    struct stat st;
+
+    if (stat(filename) == -1) {
+        perror("stat()");
+
+        return (-1);
+    }
+
+    *filesize = st.st_size;
+
+    return (1);
+}
+
+int get_filetime(filename, filetime)
+const char *filename;
+time_t *filetime;
+{
+    struct stat st;
+
+    if (stat(filename, &st) == -1) {
+        perror("stat()");
+
+        return (-1);
+    }
+
+    *filetime = st.st_mtime;
+
+    return (1);
 }
