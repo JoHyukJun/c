@@ -82,6 +82,51 @@ char *buf;
     return (sent_size);
 }
 
+int tcp_recv_size_wt(sockfd, buf, size, timeout)
+int sockfd;
+char *buf;
+int size;
+int timeout;
+{
+    int recv_size;
+    fd_set readfds;
+    struct timeval tv;
+
+    FD_ZERO(&readfds);
+    FD_SET(sockfd, &readfds);
+
+    tv.tv_sec = timeout;
+    tv.tv_usec = 0;
+
+    if (select(sockfd + 1, &readfds, NULL, NULL, &tv) == -1)
+    {
+        perror("select()");
+
+        return (-1);
+    }
+
+    if (FD_ISSET(sockfd, &readfds))
+    {
+        recv_size = recv(sockfd, buf, size, 0);
+
+        if (recv_size == -1)
+        {
+            perror("recv()");
+
+            return (-1);
+        }
+
+        return (recv_size);
+    }
+    else
+    {
+        fprintf(stderr, "Timeout\n");
+
+        return (-1);
+    }
+}
+
+
 int tcp_recv_size(sockfd, buf, size)
 int sockfd;
 char *buf;

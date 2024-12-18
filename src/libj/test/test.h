@@ -12,6 +12,9 @@
 #include "filelib.h"
 #include "samlib.h"
 #include "semlib.h"
+#include "timelib.h"
+#include "jsonlib.h"
+
 
 #define TEST_SEM_KEY 0xE100001
 

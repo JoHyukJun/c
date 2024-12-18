@@ -25,7 +25,7 @@ const char *filename;
 }
 
 int ferase(filename)
-const char *filename
+const char *filename;
 {
     FILE *fp;
 
@@ -96,11 +96,92 @@ const char *dst_filename;
     return (1);
 }
 
-int set_seqno_file(filename, seqno)
+int init_seqnof(filename)
+const char *filename;
+{
+    FILE *fp;
+
+    if ((fp = fopen(filename, "w")) == NULL) {
+        perror("fopen()");
+
+        return (-1);
+    }
+
+    fprintf(fp, "0");
+
+    fclose(fp);
+
+    return (1);
+}
+
+int set_seqnof(filename, seqno)
 const char *filename;
 int seqno;
 {
     FILE *fp;
 
+    if ((fp = fopen(filename, "r+")) == NULL) {
+        perror("fopen()");
 
+        return (-1);
+    }
+
+    fprintf(fp, "%d", seqno);
+
+    fclose(fp);
+
+    return (1);
+}
+
+int get_seqnof(filename, seqno)
+const char *filename;
+int seqno;
+{
+    FILE *fp;
+
+    if ((fp = fopen(filename, "r")) == NULL) {
+        perror("fopen()");
+
+        return (-1);
+    }
+
+    fscanf(fp, "%d", &seqno);
+
+    fclose(fp);
+
+    return (1);
+}
+
+int get_filesize(filename, filesize)
+const char *filename;
+long *filesize;
+{
+    struct stat st;
+
+    if (stat(filename, &st) == -1) {
+        perror("stat()");
+
+        return (-1);
+    }
+
+    *filesize = st.st_size;
+
+    return (1);
+}
+
+int get_filetime(filename, filetime)
+const char *filename;
+time_t *filetime;
+{
+    struct stat st;
+
+    if (stat(filename, &st) == -1) {
+        perror("stat()");
+
+        return (-1);
+    }
+
+    *filetime = st.st_mtime;
+
+    return (1);
 }
