@@ -68,19 +68,3 @@ void *data;
 
     return (0);
 }
-
-int sqlite_create_table(db, sql)
-sqlite3 *db;
-const char *sql;
-{
-    char *errmsg;
-
-    if (sqlite3_exec(db, sql, 0, 0, &errmsg) != SQLITE_OK)
-    {
-        perror("sqlite3_exec()");
-
-        return (-1);
-    }
-
-    return (0);
-}

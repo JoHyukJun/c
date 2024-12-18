@@ -45,45 +45,6 @@ int port;
     return (0);
 }
 
-int set_tcp_sockopt(sockfd, optval)
-int sockfd;
-int optval;
-{
-    if (optval == 1)
-    {
-        if (setsockopt(sockfd, SOL_SOCKET, SO_KEEPALIVE, &optval, sizeof(optval)) == -1)
-        {
-            perror("setsockopt()");
-
-            return (-1);
-        }
-    }
-    else if (optval == 2)
-    {
-        if (setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, &optval, sizeof(optval)) == -1)
-        {
-            perror("setsockopt()");
-
-            return (-1);
-        }
-    }
-    else if (optval == 3)
-    {
-        if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)) == -1)
-        {
-            perror("setsockopt()");
-
-            return (-1);
-        }
-    }
-    else
-    {
-        fprintf(stderr, "Invalid optval\n");
-
-        return (-1);
-    }
-}
-
 int tcp_send_size(sockfd, buf, size)
 int sockfd;
 char *buf;
