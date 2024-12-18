@@ -25,7 +25,7 @@ const char *filename;
 }
 
 int ferase(filename)
-const char *filename
+const char *filename;
 {
     FILE *fp;
 
@@ -96,12 +96,29 @@ const char *dst_filename;
     return (1);
 }
 
-int set_seqnof(filename, seqno)
+int init_seqnof(filename)
 const char *filename;
-char *seqno;
 {
     FILE *fp;
-    int i_seqno;
+
+    if ((fp = fopen(filename, "w")) == NULL) {
+        perror("fopen()");
+
+        return (-1);
+    }
+
+    fprintf(fp, "0");
+
+    fclose(fp);
+
+    return (1);
+}
+
+int set_seqnof(filename, seqno)
+const char *filename;
+int seqno;
+{
+    FILE *fp;
 
     if ((fp = fopen(filename, "r+")) == NULL) {
         perror("fopen()");
@@ -109,8 +126,7 @@ char *seqno;
         return (-1);
     }
 
-    i_seqno = atoi(seqno);
-    fprintf(fp, "%d", i_seqno);
+    fprintf(fp, "%d", seqno);
 
     fclose(fp);
 
@@ -119,7 +135,7 @@ char *seqno;
 
 int get_seqnof(filename, seqno)
 const char *filename;
-char *seqno;
+int seqno;
 {
     FILE *fp;
 
@@ -129,7 +145,7 @@ char *seqno;
         return (-1);
     }
 
-    fscanf(fp, "%s", seqno);
+    fscanf(fp, "%d", &seqno);
 
     fclose(fp);
 
@@ -142,7 +158,7 @@ long *filesize;
 {
     struct stat st;
 
-    if (stat(filename) == -1) {
+    if (stat(filename, &st) == -1) {
         perror("stat()");
 
         return (-1);

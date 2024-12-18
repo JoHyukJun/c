@@ -3,7 +3,9 @@
 LIB_PATH = ../libobj
 LIB_FLAGS = -lj.file \
 		   	-lj.sam \
-			-lj.sem
+			-lj.sem \
+			-lj.time \
+			-lj.json
 SRCS = $(wildcard *.c)
 PROGS = $(patsubst %.c,%,$(SRCS))
 CFLAGS = -Wall -Werror -pthread -I$(INCLUDE_FLAGS)

@@ -1,0 +1,7 @@
+{
+    "TEST1": "TEST1",
+    "TEST2": {
+        "TEST2_1": "TEST2_1",
+        "TEST2_2": "TEST2_2"
+    }
+}
