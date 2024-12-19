@@ -107,7 +107,7 @@ const char *filename;
         return (-1);
     }
 
-    fprintf(fp, "0");
+    fwrite("0", 1, 1, fp);
 
     fclose(fp);
 
@@ -126,7 +126,7 @@ int seqno;
         return (-1);
     }
 
-    fprintf(fp, "%d", seqno);
+    fwrite(&seqno, sizeof(int), 1, fp);
 
     fclose(fp);
 
@@ -144,8 +144,8 @@ int seqno;
 
         return (-1);
     }
-
-    fscanf(fp, "%d", &seqno);
+    
+    fread(&seqno, sizeof(int), 1, fp);
 
     fclose(fp);
 

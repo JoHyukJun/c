@@ -59,11 +59,28 @@ void test_jsonlib()
     json_close(fd);
 }
 
+void test_sqlitelib()
+{
+    sqlite3 *db;
+
+    sqlite_open("./test.db", &db);
+
+    sqlite_exec(db, "CREATE TABLE TEST (ID INT, NAME TEXT);");
+
+    sqlite_exec(db, "INSERT INTO TEST VALUES (1, 'TEST1');");
+    sqlite_exec(db, "INSERT INTO TEST VALUES (2, 'TEST2');");
+    sqlite_exec(db, "INSERT INTO TEST VALUES (3, 'TEST3');");
+
+    sqlite_select(db, "SELECT * FROM TEST;", callback, NULL);
+
+    sqlite_close(db);
+}
+
 int main()
 {
     print_test();
 
-    test_jsonlib();
+    test_sqlitelib();
 
     return (0);
 }
