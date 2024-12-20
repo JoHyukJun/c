@@ -65,32 +65,23 @@ int fd;
     return (0);
 }
 
-int log_write(fd, buf, size)
-int fd;
-const char *buf;
-int size;
-{
-    int write_size;
-
-    write_size = write(fd, buf, size);
-
-    if (write_size == -1)
-    {
-        perror("write()");
-
-        return (-1);
-    }
-
-    return (write_size);
-}
-
-int log_write_str(fd, buf)
+int log_write(fd, buf)
 int fd;
 const char *buf;
 {
     int write_size;
+    struct timeval tv;
+    int hour, min, sec;
 
-    write_size = write(fd, buf, strlen(buf));
+    gettimeofday(&tv, NULL);
+
+    hour = tv.tv_sec / 3600 % 24;
+    min = tv.tv_sec / 60 % 60;
+    sec = tv.tv_sec % 60;
+
+    write_size = dprintf(fd, "[%02d:%02d:%02d] %s", hour, min, sec, buf);
+
+    write_size += write(fd, "\n", 1);
 
     if (write_size == -1)
     {
@@ -126,12 +117,7 @@ int debug(const char *fmt, ...)
         return (-1);
     }
 
-    if (log_write_str(fileno(log_fp), buf) < 0)
-    {
-        return (-1);
-    }
-
-    if (log_write_str(fileno(log_fp), "\n") < 0)
+    if (log_write(fileno(log_fp), buf) < 0)
     {
         return (-1);
     }
