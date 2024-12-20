@@ -1,8 +1,36 @@
 #include "loglib.h"
 
+
+FILE *log_fp = NULL;
+
 int print_loglib()
 {
     printf("LOGLIB\n");
+
+    return 0;
+}
+
+FILE *get_logfile_ptr(filename)
+const char *filename;
+{
+    FILE *fp;
+
+    fp = fopen(filename, "a");
+
+    if (fp == NULL)
+    {
+        perror("fopen()");
+
+        return (NULL);
+    }
+
+    return (fp);
+}
+
+int set_logfile_ptr(fp)
+FILE *fp;
+{
+    log_fp = fp;
 
     return 0;
 }
@@ -72,4 +100,41 @@ const char *buf;
     }
 
     return (write_size);
+}
+
+int debug(const char *fmt, ...)
+{
+    va_list ap;
+    char buf[1024];
+    int len;
+
+    va_start(ap, fmt);
+    len = vsnprintf(buf, sizeof(buf), fmt, ap);
+    va_end(ap);
+
+    if (len == -1)
+    {
+        perror("vsnprintf()");
+
+        return (-1);
+    }
+
+    if (log_fp == NULL)
+    {
+        perror("log_fp is NULL");
+
+        return (-1);
+    }
+
+    if (log_write_str(fileno(log_fp), buf) < 0)
+    {
+        return (-1);
+    }
+
+    if (log_write_str(fileno(log_fp), "\n") < 0)
+    {
+        return (-1);
+    }
+
+    return (0);
 }

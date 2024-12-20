@@ -15,6 +15,7 @@
 #include "timelib.h"
 #include "jsonlib.h"
 #include "sqlitelib.h"
+#include "loglib.h"
 
 #define TEST_SEM_KEY 0xE100001
 
