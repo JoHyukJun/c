@@ -76,11 +76,24 @@ void test_sqlitelib()
     sqlite_close(db);
 }
 
+void test_loglib()
+{
+    int fd;
+
+    fd = log_open("./test.log");
+
+    log_fp = get_logfile_ptr("./test.log");
+
+    debug("test loglib");
+
+    log_close(fd);
+}
+
 int main()
 {
     print_test();
 
-    test_sqlitelib();
+    test_loglib();
 
     return (0);
 }
