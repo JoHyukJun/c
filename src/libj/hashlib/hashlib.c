@@ -38,7 +38,7 @@ int init_hash_table()
         hash_table->table[i] = NULL;
     }
 
-    return 0;
+    return (0);
 }
 
 int hash(key)
@@ -94,7 +94,7 @@ const char *value;
     entry->next = hash_table->table[index];
     hash_table->table[index] = entry;
 
-    return 0;
+    return (0);
 }
 
 int delete_hash_table(key)
@@ -126,7 +126,7 @@ const char *key;
             free(entry->value);
             free(entry);
 
-            return 0;
+            return (0);
         }
 
         prev = entry;
@@ -157,4 +157,27 @@ const char *key;
     }
 
     return (NULL);
+}
+
+int exsits_hash_table(key)
+const char *key;
+{
+    int index;
+    hash_entry_t *entry;
+
+    index = hash(key) % HASH_TABLE_SIZE;
+
+    entry = hash_table->table[index];
+
+    while (entry != NULL)
+    {
+        if (strcmp(entry->key, key) == 0)
+        {
+            return (1);
+        }
+
+        entry = entry->next;
+    }
+
+    return (0);
 }
