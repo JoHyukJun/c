@@ -89,11 +89,30 @@ void test_loglib()
     log_close(fd);
 }
 
+void test_hashlib()
+{
+    char *t_val;
+
+    init_hash_table();
+
+    insert_hash_table("TEST1", "VALUE1");
+    insert_hash_table("TEST2", "VALUE2");
+    insert_hash_table("TEST3", "VALUE3");
+
+    t_val = search_hash_table("TEST1");
+
+    insert_hash_table("TEST1", "VALUE4");
+
+    t_val = search_hash_table("TEST1");
+    
+    printf("TEST1: %s\n", t_val);
+}
+
 int main()
 {
     print_test();
 
-    test_loglib();
+    test_hashlib();
 
     return (0);
 }
