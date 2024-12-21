@@ -29,5 +29,6 @@ int init_hash_table();
 int insert_hash_table(const char *key, const char *value);
 char *search_hash_table(const char *key);
 int delete_hash_table(const char *key);
+int exist_hash_table(const char *key);
 
 #endif
