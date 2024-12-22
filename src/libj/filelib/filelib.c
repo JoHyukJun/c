@@ -185,3 +185,94 @@ time_t *filetime;
 
     return (1);
 }
+
+int get_filemode(filename, filemode)
+const char *filename;
+mode_t *filemode;
+{
+    struct stat st;
+
+    if (stat(filename, &st) == -1) {
+        perror("stat()");
+
+        return (-1);
+    }
+
+    *filemode = st.st_mode;
+
+    return (1);
+}
+
+int get_fileowner(filename, fileowner)
+const char *filename;
+uid_t *fileowner;
+{
+    struct stat st;
+
+    if (stat(filename, &st) == -1) {
+        perror("stat()");
+
+        return (-1);
+    }
+
+    *fileowner = st.st_uid;
+
+    return (1);
+}
+
+int get_filegroup(filename, filegroup)
+const char *filename;
+gid_t *filegroup;
+{
+    struct stat st;
+
+    if (stat(filename, &st) == -1) {
+        perror("stat()");
+
+        return (-1);
+    }
+
+    *filegroup = st.st_gid;
+
+    return (1);
+}
+
+int get_keyf(filename, keyf, key_size)
+const char *filename;
+char *keyf;
+int key_size;
+{
+    FILE *fp;
+
+    if ((fp = fopen(filename, "r")) == NULL) {
+        perror("fopen()");
+
+        return (-1);
+    }
+
+    fgets(keyf, key_size, fp);
+
+    fclose(fp);
+
+    return (1);
+}
+
+int set_keyf(filename, keyf, key_size)
+const char *filename;
+char *keyf;
+int key_size;
+{
+    FILE *fp;
+
+    if ((fp = fopen(filename, "w")) == NULL) {
+        perror("fopen()");
+
+        return (-1);
+    }
+
+    fputs(keyf, fp);
+
+    fclose(fp);
+
+    return (1);
+}
