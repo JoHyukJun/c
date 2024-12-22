@@ -7,7 +7,8 @@ LIB_FLAGS = -lj.file \
 			-lj.time \
 			-lj.json \
 			-lj.db \
-			-lj.log
+			-lj.log \
+			-lj.hash
 SRCS = $(wildcard *.c)
 PROGS = $(patsubst %.c,%,$(SRCS))
 CFLAGS = -Wall -Werror -pthread -I$(INCLUDE_FLAGS)
