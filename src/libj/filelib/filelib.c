@@ -185,3 +185,54 @@ time_t *filetime;
 
     return (1);
 }
+
+int get_filemode(filename, filemode)
+const char *filename;
+mode_t *filemode;
+{
+    struct stat st;
+
+    if (stat(filename, &st) == -1) {
+        perror("stat()");
+
+        return (-1);
+    }
+
+    *filemode = st.st_mode;
+
+    return (1);
+}
+
+int get_fileowner(filename, fileowner)
+const char *filename;
+uid_t *fileowner;
+{
+    struct stat st;
+
+    if (stat(filename, &st) == -1) {
+        perror("stat()");
+
+        return (-1);
+    }
+
+    *fileowner = st.st_uid;
+
+    return (1);
+}
+
+int get_filegroup(filename, filegroup)
+const char *filename;
+gid_t *filegroup;
+{
+    struct stat st;
+
+    if (stat(filename, &st) == -1) {
+        perror("stat()");
+
+        return (-1);
+    }
+
+    *filegroup = st.st_gid;
+
+    return (1);
+}
