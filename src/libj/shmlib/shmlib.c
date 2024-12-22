@@ -60,7 +60,7 @@ int shmid;
     return (0);
 }
 
-int sam_write(shmid, buf, buf_size)
+int shm_write(shmid, buf, buf_size)
 int shmid;
 char *buf;
 int buf_size;
@@ -88,7 +88,7 @@ int buf_size;
     return (0);
 }
 
-int sam_read(shmid, buf, buf_size)
+int shm_read(shmid, buf, buf_size)
 int shmid;
 char *buf;
 int buf_size;

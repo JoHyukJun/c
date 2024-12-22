@@ -236,3 +236,43 @@ gid_t *filegroup;
 
     return (1);
 }
+
+int get_keyf(filename, keyf, key_size)
+const char *filename;
+char *keyf;
+int key_size;
+{
+    FILE *fp;
+
+    if ((fp = fopen(filename, "r")) == NULL) {
+        perror("fopen()");
+
+        return (-1);
+    }
+
+    fgets(keyf, key_size, fp);
+
+    fclose(fp);
+
+    return (1);
+}
+
+int set_keyf(filename, keyf, key_size)
+const char *filename;
+char *keyf;
+int key_size;
+{
+    FILE *fp;
+
+    if ((fp = fopen(filename, "w")) == NULL) {
+        perror("fopen()");
+
+        return (-1);
+    }
+
+    fputs(keyf, fp);
+
+    fclose(fp);
+
+    return (1);
+}
