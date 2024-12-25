@@ -276,3 +276,78 @@ int key_size;
 
     return (1);
 }
+
+int get_file_absolute_path(filename, abs_path)
+const char *filename;
+char *abs_path;
+{
+    char *ptr;
+
+    if ((ptr = realpath(filename, abs_path)) == NULL) {
+        perror("realpath()");
+
+        return (-1);
+    }
+
+    return (1);
+}
+
+int get_file_relative_path(filename, rel_path)
+const char *filename;
+char *rel_path;
+{
+    char *ptr;
+
+    if ((ptr = realpath(filename, rel_path)) == NULL) {
+        perror("realpath()");
+
+        return (-1);
+    }
+
+    return (1);
+}
+
+int get_file_extension(filename, ext)
+const char *filename;
+char *ext;
+{
+    char *ptr;
+
+    if ((ptr = strrchr(filename, '.')) == NULL) {
+        return (-1);
+    }
+
+    strcpy(ext, ptr);
+
+    return (1);
+}
+
+int get_file_basename(filename, basename)
+const char *filename;
+char *basename;
+{
+    char *ptr;
+
+    if ((ptr = strrchr(filename, '/')) == NULL) {
+        return (-1);
+    }
+
+    strcpy(basename, ptr + 1);
+
+    return (1);
+}
+
+int get_file_dirname(filename, dirname)
+const char *filename;
+char *dirname;
+{
+    char *ptr;
+
+    if ((ptr = strrchr(filename, '/')) == NULL) {
+        return (-1);
+    }
+
+    strncpy(dirname, filename, ptr - filename);
+
+    return (1);
+}
