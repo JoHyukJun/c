@@ -351,3 +351,60 @@ char *dirname;
 
     return (1);
 }
+
+int search_filelist_dir(dirname, filelist)
+const char *dirname;
+char *filelist;
+{
+    DIR *dp;
+    struct dirent *dent;
+    char path[PATH_LEN_MAX];
+    char abs_path[PATH_LEN_MAX];
+    char abs_dirname[PATH_LEN_MAX];
+
+    if (realpath(dirname, abs_dirname) == NULL)
+    {
+        perror("realpath()");
+        
+        return (-1);
+    }
+
+    if ((dp = opendir(dirname)) == NULL)
+    {
+        perror("opendir()");
+
+        return (-1);
+    }
+
+    while ((dent = readdir(dp)) != NULL)
+    {
+        if (strcmp(dent->d_name, ".") == 0 || strcmp(dent->d_name, "..") == 0)
+        {
+            continue;
+        }
+
+        snprintf(path, sizeof(path), "%s/%s", abs_dirname, dent->d_name);
+
+        if (realpath(path, abs_path) == NULL)
+        {
+            perror("realpath()");
+            closedir(dp);
+
+            return (-1);
+        }
+
+        if (dent->d_type == DT_DIR)
+        {
+            search_filelist_dir(abs_path, filelist);
+        }
+        else
+        {
+            strcat(filelist, path);
+            strcat(filelist, "\n");
+        }
+    }
+
+    closedir(dp);
+
+    return (1);
+}

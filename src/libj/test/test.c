@@ -28,21 +28,29 @@ void test_semlib()
 
 void test_filelib()
 {
-    int seqno = 0;
+    /*
+    * seqnof test
+    */
+    // int seqno = 0;
 
-    init_seqnof("./test.seq");
+    // init_seqnof("./test.seq");
 
-    while (1)
-    {
-        get_seqnof("./test.seq", seqno);
+    // while (1)
+    // {
+    //     get_seqnof("./test.seq", seqno);
 
-        print_current_time();
-        printf("seqno: %d\n", seqno); 
+    //     print_current_time();
+    //     printf("seqno: %d\n", seqno); 
 
-        seqno++;
+    //     seqno++;
 
-        set_seqnof("./test.seq", seqno);
-    }
+    //     set_seqnof("./test.seq", seqno);
+    // }
+    char filelist[9999];
+
+    search_filelist_dir("../", filelist);
+
+    printf("filelist: %s\n", filelist);
 }
 
 void test_jsonlib()
@@ -112,7 +120,7 @@ int main()
 {
     print_test();
 
-    test_hashlib();
+    test_filelib();
 
     return (0);
 }
