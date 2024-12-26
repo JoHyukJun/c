@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <dirent.h>
 
+#define PATH_LEN_MAX 1024
 
 int print_filelib();
 int fexist(const char *filename);
@@ -19,5 +20,6 @@ int get_filesize(const char *filename, long *filesize);
 int init_seqnof(const char *filename);
 int get_seqnof(const char *filename, int seqno);
 int set_seqnof(const char *filename, int seqno);
+int search_filelist_dir(const char *dirname, char *filelist);
 
 #endif
