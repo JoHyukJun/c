@@ -1,4 +1,4 @@
-#include "algolib.h"
+#include "bintree.h"
 
 
 int print_bintree()
@@ -42,7 +42,7 @@ int data;
     return node;
 }
 
-void insert_node(tree, data)
+void insert_tree_node(tree, data)
 BinaryTree *tree;
 int data;
 {
@@ -82,7 +82,7 @@ int data;
     }
 }
 
-TreeNode* search_node(tree, data)
+TreeNode* search_tree_node(tree, data)
 BinaryTree *tree;
 int data;
 {
@@ -116,7 +116,7 @@ TreeNode *node;
     free(node);
 }
 
-void print_inorder(node)
+void print_inorder_tree(node)
 TreeNode *node;
 {
     if (node == NULL) return;
@@ -124,4 +124,14 @@ TreeNode *node;
     print_inorder(node->left);
     printf("%d ", node->data);
     print_inorder(node->right);
+}
+
+void print_preorder_tree(node)
+TreeNode *node;
+{
+    if (node == NULL) return;
+
+    printf("%d ", node->data);
+    print_preorder(node->left);
+    print_preorder(node->right);
 }

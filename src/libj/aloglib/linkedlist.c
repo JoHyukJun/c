@@ -1,4 +1,4 @@
-#include "algolib.h"
+#include "linkedlist.h"
 
 
 int print_linkedlist()
@@ -41,7 +41,7 @@ int data;
     return node;
 }
 
-void insert_node(list, data)
+void insert_linked_list_node(list, data)
 LinkedList *list;
 int data;
 {
@@ -66,7 +66,7 @@ int data;
     current->next = node;
 }
 
-void print_list(list)
+void print_linked_list(list)
 LinkedList *list;
 {
     LinkedListNode *current = list->head;
@@ -80,7 +80,7 @@ LinkedList *list;
     printf("\n");
 }
 
-void delete_list(list)
+void delete_linked_list(list)
 LinkedList *list;
 {
     LinkedListNode *current = list->head;
