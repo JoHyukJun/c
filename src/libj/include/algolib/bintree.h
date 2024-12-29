@@ -1,5 +1,5 @@
-#ifndef __ALGOLIB__
-#define __ALGOLIB__
+#ifndef __BINTREE__
+#define __BINTREE__
 
 #include <stdio.h>
 #include <string.h>
