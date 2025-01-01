@@ -115,23 +115,3 @@ TreeNode *node;
     delete_tree(node->right);
     free(node);
 }
-
-void print_inorder_tree(node)
-TreeNode *node;
-{
-    if (node == NULL) return;
-
-    print_inorder(node->left);
-    printf("%d ", node->data);
-    print_inorder(node->right);
-}
-
-void print_preorder_tree(node)
-TreeNode *node;
-{
-    if (node == NULL) return;
-
-    printf("%d ", node->data);
-    print_preorder(node->left);
-    print_preorder(node->right);
-}
