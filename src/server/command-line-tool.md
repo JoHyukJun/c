@@ -464,21 +464,50 @@
 
 ### explanation
 
+- 네트워크/소켓 상태를 조회
 
 ### options
 
+- -a :All type of port
+- -n :Numeric address 변환
+- -t :TCP socket only
+- -u :UDP socket only
+- -x :Unix domain socket only
+- -l :Listening socket only
+- -p :소켓을 열고 있는 프로그램과 PID 조회
+- -r :Routing table 조회
+- -s :Network statistics 조회
 
 ### examples
+
+- netstat
+- netstat -an
 
 ## sysctl
 
 ### explanation
 
+- 시스템 설정 조회/설정
 
 ### options
 
+- -a, --all
+  - 모든 변수 출력
+- -w, --write
+  - 지정된 변수에 값 설정
+- -r, --pattern
+  - 변수 search pattern 입력
+- -N, --names
+  - 변수 이름만 출력
+- -n, --values
+  - 변수 값만 출력
 
 ### examples
+
+- sysctl -a
+- sudo sysctl -w kernel.domainname="johyukjun.com"
+- cat /proc/sys/kernel/domainname
+- sysctl -a --pattern 'for'
 
 ## df
 
