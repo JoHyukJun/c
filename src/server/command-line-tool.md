@@ -1,6 +1,6 @@
 # command-line-tool
 
-- johyukjun
+- johyukjun, 20250301
 
 ## head
 
@@ -206,3 +206,386 @@
 - head /etc/hosts | sed '1,4d'
 - head /etc/hosts | sed -n '/Host/p'
 - head /etc/hosts | 's/Host/KING'
+
+## awk
+
+### explanation
+
+- 텍스트 처리 script language
+- awk options 'selection _criteria {action}' input-file
+
+### options
+
+- -F
+  - field separator 지정
+- $1, $2, ...
+  - Nth filed
+- NR
+  - Number of records
+- NF
+  - Number of fileds
+- FS
+  - Filed separator
+- RS
+  - Record separator
+- OFS
+  - Output field separator
+- ORS
+  - Ouput record separator
+
+### examples
+
+- wc /etc/hosts | awk '{ print $1 }'
+- head /etc/hosts | awk '{ print $1 }'
+'
+- head /etc/hosts | awk -F. '/host/ {print}'
+
+## find
+
+### explanation
+
+- 조건에 맞는 파일을 찾아 명령 수행
+
+### options
+
+- -name
+  - 이름으로 검색
+- -regex
+  - regex 로 검색
+- -empty
+  - 빈 디렉터리 혹은 빈 검색
+- size
+  - -N :이하
+  - +N :이상
+- -type
+  - d :directory
+  - p :named pipe
+  - f :regular file
+  - l :softlink
+  - s :socket
+- -perm
+  - mode :정확히 일치하는 파일
+  - +mode :모든 flag가 포함된 파일
+  - /mode :어떤 flag라도 포함된 파일
+- -delete
+  파일 삭제
+- -ls
+  - ls -dils 명령 수행
+- -print
+  - 파일 이름 출력
+- -printf
+  - 파일 이름을 포맷에 맞게 출력
+- -exec
+  - 명령 수행
+- execdir
+  - 해당 디렉터리로 이동하여 명령 수행
+- -ok
+  - 사용자에게 확인 후 exec
+- -okdir
+  - 사용자에게 확인 후 execdir
+
+### examples
+
+- find . | wc -l
+- find . -name "*.py"
+- find `pwd` -name "*.c"
+- find `pwd` -regex '.*t.*.c$'
+- find . -empty
+- find . -type f
+- find . -perm 0777
+- find . -name "*.py" -print
+- find . -name "*.py" -exec stat {} \;
+- find . -name "*.py" -execdir stat {} \;
+- find . -name "*.py" -ok rm -f {} \;
+
+## grep
+
+### explanation
+
+- 파일 내용 중 원하는 내용을 찾아 출력
+- grep [OPTIONS] PATTERN [FILE...]
+
+### options
+
+- -r :recursive
+- -i :ignore case
+- -v :invert match
+- -q :quite mode
+
+### examples
+
+- grep fork *.c
+- grep fork *.c -q
+- grep "\<for\>" *.c
+- grep "^static.*(void)" *.c
+
+## apropos
+
+### explanation
+
+- man page 이름과 설명을 검색
+
+### options
+
+- -s, --sections=LIST, --section=LIST
+  - 탐색할 섹션을 colon 으로 구분하여 입력
+
+### examples
+
+- apropos pthread
+- apropos pthread -s 7
+- apropos '^sem_'
+- apropos '.*'
+
+## locate
+
+### explanation
+
+- 파일의 위치를 찾아 출력
+- updatedb 가 저장해놓은 db 파일 내에서 검색하여 누락 파일 존재 가능성 있음
+- locate [OPTION]... PATTERN...
+
+### options
+
+- -i, --ignore-case
+  - 대소문자 구분없이 검색
+- -l, --limit, -n LIMIT
+  - 출력 결과를 LIMIT 만큼 출력
+- --regex
+  - PATTERN 을 regex 로 해석
+
+### examples
+
+- locate main.c
+- locate main.c -n 10
+- locate --regex "./src/.*<main.c$"
+
+## which
+
+### explanation
+
+- 실행 파일의 위치를 출력
+
+### options
+
+- NONE
+
+### examples
+
+- which ls
+- which chmod
+
+## ps
+
+### explanation
+
+- process status 출력
+ 
+|code|output header|meaning|
+|----|-------------|-------|
+|user|UID/USER|Username|
+|pid|PID|Process ID|
+|tty|TT|실행 terminal|
+|cputime|TIME|누적 CPU 소모 시간|
+|args|CMD|실행 커맨드 라인|
+|stime|STIME|프로세스 시작 시간|
+|c|C|CPU utilization|
+|%cpu|%CPU|CPU utilization|
+|%mem|%MEM|Memory utilization|
+|rss|RSS|메모리 사용량|
+
+### options
+
+- -e
+  - 모든 프로세스
+- -f
+  - full format
+- -L
+  - thread 출력
+- --forest
+  - 프로세스를 tree 형태로 출력
+- -o
+  - output formatting
+- --sort
+  - sorting
+
+### examples
+
+- ps -ef
+- ps -p 97174 -f
+- ps -ef --forest
+- ps -ef --sort-=-%ppid | head
+- ps -eo pid,args
+
+## top
+
+### explanation
+
+- 프로세스를 어떤 기준으로 정렬하여 n개의 프로세스를 모니터링
+
+### options
+
+- space :업데이트
+- q :종료
+- c :full command line 조회
+- l :모든 cpu 상태 조회
+- M :memory usage
+- P :CPU usage
+- N :process Id
+- T :running time
+- R :역순 정렬
+
+### examples
+
+- top
+
+## lsof
+
+### explanation
+
+- 열려있는 파일(파일, 소켓, 디바이스 등) 목록 조회
+
+### options
+
+- -U :Unix domain socket
+- -i :Internet domain socket
+- -p :특정 pid 가 열어놓은 파일
+- -u :User Id 지정
+
+### examples
+
+- lsof
+- lsof -U
+- lsof -i 4
+- lsof -i tcp
+- lsof -u `whoami`
+
+## netstat
+
+### explanation
+
+
+### options
+
+
+### examples
+
+## sysctl
+
+### explanation
+
+
+### options
+
+
+### examples
+
+## df
+
+### explanation
+
+
+### options
+
+
+### examples
+
+## du
+
+### explanation
+
+
+### options
+
+
+### examples
+
+## dmidecode
+
+### explanation
+
+
+### options
+
+
+### examples
+
+## lscpu
+
+### explanation
+
+
+### options
+
+
+### examples
+
+## free
+
+### explanation
+
+
+### options
+
+
+### examples
+
+## man
+
+### explanation
+
+
+### options
+
+
+### examples
+
+## diff
+
+### explanation
+
+
+### options
+
+
+### examples
+
+## patch
+
+### explanation
+
+
+### options
+
+
+### examples
+
+## ctags
+
+### explanation
+
+
+### options
+
+
+### examples
+
+## cscope
+
+### explanation
+
+
+### options
+
+
+### examples
+
+## strace
+
+### explanation
+
+
+### options
+
+
+### examples
