@@ -513,31 +513,71 @@
 
 ### explanation
 
+- disk 사용량 조회
 
 ### options
 
+- -a, --all
+  - 모든 내용 출력
+- -h, --human-readable
+  - 사람이 보기 편한 형태로 출력
+- -t, --type=TYPE
+  - 지정된 파일 시스템에 대해서만 출력
 
 ### examples
+
+- df
+- df -h
+- df FILE
 
 ## du
 
 ### explanation
 
+- 특정 파일/디렉터리가 점유하고 있는 disk usage 조회
 
 ### options
 
+- -a, --all
+  - 디렉터리 포함 모든 파일 출력
+- -b, --bytes
+  - byte 단위로 출력
+- -h, --human-readable
+  - 사람이 읽기 편한 포맷으로 출력
+- -d, --max-depth=N
+  - 디렉터리 최대 깊이
+- -c, --total
+  - 총 합계 출력
+- -s, --summarize
+  - 항목 별 요약 출력
 
 ### examples
+
+- du
+- du /etc -s -c -h
+- du -sh *
 
 ## dmidecode
 
 ### explanation
 
+- SMBIOS 조회
+- DMI(Desktop Management Interface)
+- SMBIOS(System Management BIOS)
+  - BIOS 가 생성한 시스템 하드웨어 정보
 
 ### options
 
+- -t, --type
+  - 지정된 type 만 출력
+- -s, --string
+  - 지정된 keyword 만 출력
 
 ### examples
+
+- dmidecode
+- dmidecode -t bios
+- dmidecode -s system-uuid
 
 ## lscpu
 
