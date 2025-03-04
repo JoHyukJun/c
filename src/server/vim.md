@@ -139,3 +139,28 @@
 - [a-z] :a~z 사이의 문자
 - [abc] :a,b,c 중 하나와 매치되는 문자
 - [^0-9] :0~9를 제외한 문자
+
+## multi-window
+
+- 가로 분할
+  - vim -o hashlib.c hashlib.h
+  - :split n
+  - ctrl + s
+  - ctrl + w n
+- 세로 분할
+  - vim -O hashlib.c hashlib.h
+  - vsplit
+  - ctrl + w v
+- 현재 창 닫기
+  - :q
+  - ctrl + w q
+- 현재 창만 남기기
+  - :only
+  - ctrl + w o
+- ctrl + w w :다음 창으로 이동
+- ctrl + w k :윗 창으로 이동
+- ctrl + w j :아래 창으로 이동
+- ctrl + w h :왼쪽 창으로 이동
+- ctrl + w l :오른쪽 창으로 이동
+- ctrl + w t :최상단 창으로 이동
+- ctrl + w b :최하단 창으로 이동
