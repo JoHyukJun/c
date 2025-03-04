@@ -583,21 +583,47 @@
 
 ### explanation
 
+- CPU 구조 정보 출력
 
 ### options
 
+- -e, --extended[=<list>]
+  - Extended readable format
+- -p, --parse[=<list>]
+  - Parsable format
 
 ### examples
+
+- lscpu
+- lscpu -e
+- lscpu -e=SOCKET,CORE,CPU
+- lscpu -p=SOCKET,CORE,CPU
 
 ## free
 
 ### explanation
 
+- 메모리 사용량 조회
+  - total :총 메모리
+  - used :사용 중인 메모리
+  - free :free 메모리
+  - shared :tmpfs 등에서 사용하는 메모리
+  - buffers : kernel buffers
+  - cache :page cache, slabs
 
 ### options
 
+- -h, --human
+  - human readable output
+- -s N, --seconds N
+  - N 초마다 반복 출력
+- -c N, --count N
+  - N 회 출력 후 종료
 
 ### examples
+
+- free -w -h
+- free -s 1 -c 10 -h
 
 ## man
 
