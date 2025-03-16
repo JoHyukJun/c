@@ -629,21 +629,48 @@
 
 ### explanation
 
+- man page 조회
+  - 1 :general commands
+  - 2 :system call
+  - 3 :library functions(c standard library)
+  - 4 :special files
+  - 5 :file formats and conventions
+  - 6 :games and screensavers
+  - 7 :miscellanea
+  - 8 :system administration commands and deamons
 
 ### options
 
+- q :종료
+- /pattern, ?pattern :검색
 
 ### examples
+
+- man 3 printf
+- man -a stat
+- apropos pthread
+- whatis pthread
 
 ## diff
 
 ### explanation
 
+- 두 파일의 차이점을 비교(stdout 으로 출력)
+- diff 의 결과를 patch command 로 적용 가능
 
 ### options
 
+- -r, --recursive
+- -q, --brief :변경 여부만 출력
+- -u, -U NUM, --unified[=NUM] :unified context 방식으로 출력(기본값 3)
+- -N, --new-file :없는 파일을 빈 파일로 인식
+- -p, --show-c-function :변화된 블럭 함수 이름 출력
 
 ### examples
+
+- diff -uN before.c after.c
+- diff -urNp dir_a dir_b
+- diff -q dir_a dir_b
 
 ## patch
 
