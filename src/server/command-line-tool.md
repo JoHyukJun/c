@@ -676,38 +676,73 @@
 
 ### explanation
 
+- 패치 파일(diff 결과물)을 파일에 적용
 
 ### options
 
+- pNUM or --string=NUM :벗겨낼 디렉터리 수
+- i patchfile or --input=patchfile :stdin 대신 file 로부터 패치 파일을 읽음
+- --dry-run :가상으로 실행(적용하지 않음)
+- --merge :conflict 발새 시 merge
 
 ### examples
+
+- patch -p0 --dry-run < test.patch
+- patch -p3 -i test.patch
+- patch -p0 --merge -i test.patch
 
 ## ctags
 
 ### explanation
 
+- 소스코드를 분석하여 tag 를 파일로 저장
+- vim 등의 에디터에서 소스코드 탐색이 쉽도록 함
+- ctags [options] [files]
 
 ### options
 
+- -R :rucursive
+- --exclude=[pattern]
 
 ### examples
+
+- ctags -R
+- ctags -R --exclude="drivers"
 
 ## cscope
 
 ### explanation
 
+- 소스파일을 분석하여 파일로 저장
+- 자체 사용자 인터페이스 사용 가능
+- vim 등의 에이터에서도 연동 가능
 
 ### options
 
+- -b: 분석 파일만 빌드
+- -R: recursive
 
 ### examples
+
+- find 'pwd' -type f -name "*.[ch]" > cscope.files
+- cscope -b
 
 ## strace
 
 ### explanation
 
+- system call 과 signal 을 trace
 
 ### options
 
+- -p: pid 지정
+- -f: 생성되는 thread trace
+- -tt: timestamp 같이 출력
+- -o: stdout 대신 입력받는 파일에 저장
 
 ### examples
+
+- strace ls
+- strace -tt ls
+- strace -tt -o output ls
+- strace -p 1234
