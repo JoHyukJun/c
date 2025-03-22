@@ -7,7 +7,7 @@
 #include <cairo.h>
 
 #define NUM_GRAPHS 1
-#define NUM_CHARTS 12
+#define NUM_CHARTS 18
 #define NUM_VALUES 100
 
 typedef struct
@@ -20,7 +20,7 @@ typedef struct
 #define SZ_GRAPH_DATA sizeof(GraphData)
 
 int init_graph_data(GraphData *data);
-void update_graphs(GraphData graphs[], int num_graphs);
-void draw_graphs(GtkDrawingArea *area, cairo_t *cr, int width, int height, GraphData graphs[], int num_graphs);
+void update_graph(GraphData *graph);
+void draw_graph(GtkDrawingArea *area, cairo_t *cr, int width, int height, GraphData *graph);
 
 #endif // __CHART_H__

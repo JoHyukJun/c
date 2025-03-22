@@ -1,13 +1,14 @@
 #include <gtk/gtk.h>
 #include "chart.h"
 
-static GraphData graphs[NUM_GRAPHS];
+static GraphData graphs[NUM_CHARTS];
 
 static gboolean update_values(gpointer user_data) {
     GtkWidget *drawing_area = GTK_WIDGET(user_data);
+    GraphData *graph = (GraphData *)g_object_get_data(G_OBJECT(drawing_area), "graph_data");
 
     // 그래프 데이터 업데이트
-    update_graphs(graphs, NUM_GRAPHS);
+    update_graph(graph);
 
     // 화면을 다시 그리도록 요청
     gtk_widget_queue_draw(drawing_area);
@@ -17,13 +18,16 @@ static gboolean update_values(gpointer user_data) {
 }
 
 static void draw_callback(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer data) {
-    (void)data;
+    GraphData *graph = (GraphData *)data;
 
     // 그래프 그리기
-    draw_graphs(area, cr, width, height, graphs, NUM_GRAPHS);
+    draw_graph(area, cr, width, height, graph);
 }
 
-static void on_activate(GtkApplication *app, gpointer user_data) {
+static void on_activate(app, user_data)
+GtkApplication *app;
+gpointer user_data;
+{
     (void)user_data;
     GtkWidget *window = gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), "Swing Chart");
@@ -32,22 +36,23 @@ static void on_activate(GtkApplication *app, gpointer user_data) {
     GtkWidget *grid = gtk_grid_new();
     gtk_window_set_child(GTK_WINDOW(window), grid);
 
-    for (int i = 0; i < NUM_CHARTS; i++) {
+    for (int i = 0; i < NUM_CHARTS; i++)
+    {
         GtkWidget *drawing_area = gtk_drawing_area_new();
         gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(drawing_area), draw_callback, &graphs[i], NULL);
-        gtk_widget_set_size_request(drawing_area, 400, 300);
+        gtk_widget_set_size_request(drawing_area, 1280 / (NUM_CHARTS / 3), 720 / (NUM_CHARTS / 3));
 
         // 그래프 데이터를 drawing_area에 저장
         g_object_set_data(G_OBJECT(drawing_area), "graph_data", &graphs[i]);
 
         // 그리드에 drawing_area 추가
-        gtk_grid_attach(GTK_GRID(grid), drawing_area, i % 3, i / 3, 1, 1);
+        gtk_grid_attach(GTK_GRID(grid), drawing_area, i % 4, i / 4, 1, 1);
 
         // 초기 값을 설정하고 화면을 다시 그리도록 요청
         update_values(drawing_area);
 
         // g_timeout_add를 사용하여 update_values 함수를 100밀리초마다 호출
-        g_timeout_add(100, update_values, drawing_area);
+        g_timeout_add(1, update_values, drawing_area);
     }
 
     gtk_widget_show(window);
@@ -60,6 +65,8 @@ int main(int argc, char **argv) {
         graphs[j].max_value = 100.0;
         graphs[j].min_value = 0.0;
     }
+
+    srand(time(NULL));
 
     GtkApplication *app = gtk_application_new("com.unluckystrike.SwingChart", G_APPLICATION_FLAGS_NONE);
     g_signal_connect(app, "activate", G_CALLBACK(on_activate), NULL);
