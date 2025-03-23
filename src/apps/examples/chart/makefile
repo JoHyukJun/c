@@ -1,5 +1,5 @@
 CC = gcc
-OUT = swing-chart
+OUT = chart
 INCLUDE_DIR = ./include
 
 # Find all subdirectories in INCLUDE_DIR

@@ -38,7 +38,7 @@ GraphData *graph;
     cairo_stroke(cr);
 
     // x축 값 표시
-    for (int i = 0; i < NUM_VALUES; i += 10)
+    for (int i = 0; i <= NUM_VALUES; i += 10)
     {
         double x = i * (double)width / (NUM_VALUES - 1);
         cairo_move_to(cr, x, height - 5);
