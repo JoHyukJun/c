@@ -1,4 +1,4 @@
-# Swing Chart Application
+# Chart Application
 
 This application is a simple GTK4-based program that displays a line chart with random values that update every second. The application is designed to run on macOS.
 
