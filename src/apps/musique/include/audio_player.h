@@ -1,6 +1,10 @@
 #ifndef AUDIO_PLAYER_H
 #define AUDIO_PLAYER_H
 
-void play_audio(const char* filepath);
+#include <unistd.h>
+#include "player_ui.h"
+#include "metadata.h"
+
+void play_audio(const Song* song);
 
 #endif

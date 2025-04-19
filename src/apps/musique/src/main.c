@@ -8,12 +8,16 @@
 
 int main()
 {
+    printf("PROGRAM START...\n");
     Album albums[MAX_ALBUMS];
     int count = 0;
 
     HistoryEntry history[MAX_HISTORY];
     int history_count = load_history(HISTORY_FILE, history, MAX_HISTORY);
 
+    printf("🎧 재생 기록 로드 완료. %d개의 항목이 있습니다.\n", history_count);
+
+    printf("🎧 음악 디렉토리: %s\n", MUSICQUE_DIR);
     count = load_tag_cache(CAHCHE_FILE, albums, MAX_ALBUMS, MUSICQUE_DIR);
 
     if (count == 0)
@@ -63,7 +67,7 @@ int main()
         return 1;
     }
 
-    play_audio(albums[album_choice - 1].songs[song_choice - 1].path);
+    play_audio(&albums[album_choice - 1].songs[song_choice - 1]);
 
     update_history(history, &history_count, albums[album_choice - 1].songs[song_choice - 1].path);
     save_history(HISTORY_FILE, history, history_count);
