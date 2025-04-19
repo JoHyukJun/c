@@ -8,7 +8,8 @@
 #include "metadata.h"
 
 
-void ensure_cache_directory() {
+void ensure_cache_directory()
+{
     struct stat st = {0};
 
     // 캐시 디렉토리가 없으면 생성
@@ -24,7 +25,9 @@ int has_music_extension(const char* filename);
 long get_mtime(const char* path)
 {
     struct stat attr;
+
     if (stat(path, &attr) == 0) return attr.st_mtime;
+
     return 0;
 }
 
@@ -38,13 +41,27 @@ static int find_album_index(Album* albums, int count, const char* album_name)
     return -1;
 }
 
+int clear_cache(const char* path)
+{
+    FILE* fp = fopen(path, "w");
+
+    if (!fp) return 0;
+    // 캐시 파일을 비우기
+
+    fclose(fp);
+    return 1;
+}
+
 // 캐시 로딩
-int load_tag_cache(const char* path, Album* albums, int max_albums, const char* music_dir) {
+int load_tag_cache(const char* path, Album* albums, int max_albums, const char* music_dir)
+{
     FILE* fp = fopen(path, "r");
     if (!fp) return 0;
 
     DIR* dp = opendir(music_dir);
-    if (!dp) {
+
+    if (!dp)
+    {
         fclose(fp);
         return 0;
     }
@@ -56,10 +73,10 @@ int load_tag_cache(const char* path, Album* albums, int max_albums, const char* 
     {
         line[strcspn(line, "\n")] = '\0';
 
-        char filepath[512], album[256];
+        char filepath[512], album[256], artist[256], duration[10];
         long mtime;
 
-        if (sscanf(line, "%[^|]|%[^|]|%ld", filepath, album, &mtime) != 3) continue;
+        if (sscanf(line, "%[^|]|%[^|]|%[^|]|%[^|]|%ld", filepath, album, artist, duration, &mtime) != 5) continue;
 
         long current_mtime = get_mtime(filepath);
 
@@ -81,6 +98,9 @@ int load_tag_cache(const char* path, Album* albums, int max_albums, const char* 
         if (idx >= 0)
         {
             strncpy(albums[idx].songs[albums[idx].song_count].title, filename, sizeof(albums[idx].songs[0].title));
+            strncpy(albums[idx].songs[albums[idx].song_count].artist, artist, sizeof(albums[idx].songs[0].artist));
+            strncpy(albums[idx].songs[albums[idx].song_count].album, album, sizeof(albums[idx].songs[0].album));
+            strncpy(albums[idx].songs[albums[idx].song_count].duration, duration, sizeof(albums[idx].songs[0].duration));
             strncpy(albums[idx].songs[albums[idx].song_count].path, filepath, sizeof(albums[idx].songs[0].path));
             albums[idx].song_count++;
         }
@@ -103,7 +123,7 @@ int save_tag_cache(const char* path, Album* albums, int album_count)
         {
             const Song* song = &albums[i].songs[j];
             long mtime = get_mtime(song->path);
-            fprintf(fp, "%s|%s|%ld\n", song->path, albums[i].album_name, mtime);
+            fprintf(fp, "%s|%s|%s|%s|%ld\n", song->path, albums[i].album_name, song->artist, song->duration, mtime);
         }
     }
 

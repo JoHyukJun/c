@@ -8,5 +8,6 @@
 void ensure_cache_directory();
 int load_tag_cache(const char* path, Album* albums, int max_albums, const char* music_dir);
 int save_tag_cache(const char* path, Album* albums, int album_count);
+int clear_cache(const char* path);
 
 #endif

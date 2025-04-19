@@ -12,5 +12,5 @@ void play_audio(const Song* song)
         exit(0);
     }
 
-    draw_player_ui(song->title, "test", "test", 180);
+    draw_player_ui(song->title, song->artist, song->album, song->duration);
 }

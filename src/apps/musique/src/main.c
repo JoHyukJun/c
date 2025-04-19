@@ -6,11 +6,57 @@
 #include "cache.h"
 
 
-int main()
+void program_usage()
 {
-    printf("PROGRAM START...\n");
-    Album albums[MAX_ALBUMS];
+    printf("Usage: ./musique [options]\n");
+    printf("Options:\n");
+    printf("  -h, --help       Show this help message\n");
+    printf("  -v, --version    Show version information\n");
+    printf("  -c, --cache     Specify cache file path\n");
+    printf("  -cc, --clear-cache  Clear the cache\n");
+    printf("  -m, --music-dir  Specify music directory\n");
+    printf("  -H, --history    Specify history file path\n");
+}
+
+void program_version()
+{
+    printf("Musique Player \n");
+    printf("Powered by UNLUCKY STRIKE\n");
+}
+
+int main(argc, argv)
+int argc;
+char* argv[];
+{
+    if (argc == 2)
+    {
+        if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)
+        {
+            program_usage();
+            return 0;
+        }
+        else if (strcmp(argv[1], "-v") == 0 || strcmp(argv[1], "--version") == 0)
+        {
+            program_version();
+            return 0;
+        }
+        else if (strcmp(argv[1], "-cc") == 0 || strcmp(argv[1], "--clear-cache") == 0)
+        {
+            clear_cache(CAHCHE_FILE);
+            printf("캐시 파일을 비웠습니다.\n");
+            return 0;
+        } 
+    }
+
+    printf("🎧 Musique Player\n");
     int count = 0;
+    Album* albums = malloc(SZ_ALBUM * MAX_ALBUMS);
+
+    if (!albums)
+    {
+    perror("Failed to allocate memory for albums");
+    return -1;
+    }
 
     HistoryEntry history[MAX_HISTORY];
     int history_count = load_history(HISTORY_FILE, history, MAX_HISTORY);

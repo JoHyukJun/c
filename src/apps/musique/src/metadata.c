@@ -10,7 +10,8 @@ static int has_music_extension(const char* filename) {
     return strstr(filename, ".mp3") || strstr(filename, ".m4a") || strstr(filename, ".wav");
 }
 
-int get_album_name(const char* filepath, char* album_name_out, int max_len) {
+int get_album_name(const char* filepath, char* album_name_out, int max_len)
+{
     char cmd[1024];
     snprintf(cmd, sizeof(cmd),
         "ffprobe -v quiet -show_entries format_tags=album "
@@ -19,8 +20,51 @@ int get_album_name(const char* filepath, char* album_name_out, int max_len) {
     FILE* pipe = popen(cmd, "r");
     if (!pipe) return 0;
 
-    if (fgets(album_name_out, max_len, pipe) != NULL) {
+    if (fgets(album_name_out, max_len, pipe) != NULL)
+    {
         album_name_out[strcspn(album_name_out, "\n")] = '\0'; // 개행 제거
+        pclose(pipe);
+        return 1;
+    }
+
+    pclose(pipe);
+    return 0;
+}
+
+int get_artist_name(const char* filepath, char* artist_name_out, int max_len)
+{
+    char cmd[1024];
+    snprintf(cmd, sizeof(cmd),
+        "ffprobe -v quiet -show_entries format_tags=artist "
+        "-of default=noprint_wrappers=1:nokey=1 \"%s\"", filepath);
+
+    FILE* pipe = popen(cmd, "r");
+    if (!pipe) return 0;
+
+    if (fgets(artist_name_out, max_len, pipe) != NULL)
+    {
+        artist_name_out[strcspn(artist_name_out, "\n")] = '\0'; // 개행 제거
+        pclose(pipe);
+        return 1;
+    }
+
+    pclose(pipe);
+    return 0;
+}
+
+int get_duration(const char* filepath, char* duration_out, int max_len)
+{
+    char cmd[1024];
+    snprintf(cmd, sizeof(cmd),
+        "ffprobe -v quiet -show_entries format=duration "
+        "-of default=noprint_wrappers=1:nokey=1 \"%s\"", filepath);
+
+    FILE* pipe = popen(cmd, "r");
+    if (!pipe) return 0;
+
+    if (fgets(duration_out, max_len, pipe) != NULL)
+    {
+        duration_out[strcspn(duration_out, "\n")] = '\0'; // 개행 제거
         pclose(pipe);
         return 1;
     }
@@ -44,7 +88,8 @@ int scan_music_files_recursive(const char* root_dir, Album* albums, int max_albu
 
     while ((ep = readdir(dp)) != NULL) {
         // Skip "." and ".." entries
-        if (strcmp(ep->d_name, ".") == 0 || strcmp(ep->d_name, "..") == 0) {
+        if (strcmp(ep->d_name, ".") == 0 || strcmp(ep->d_name, "..") == 0)
+        {
             continue;
         }
 
@@ -52,28 +97,46 @@ int scan_music_files_recursive(const char* root_dir, Album* albums, int max_albu
         snprintf(fullpath, sizeof(fullpath), "%s/%s", root_dir, ep->d_name);
 
         struct stat path_stat;
-        if (stat(fullpath, &path_stat) == -1) {
+
+        if (stat(fullpath, &path_stat) == -1)
+        {
             perror("Failed to get file status");
             continue;
         }
 
-        if (S_ISDIR(path_stat.st_mode)) {
+        if (S_ISDIR(path_stat.st_mode))
+        {
             // If it's a directory, recursively scan it
             scan_music_files_recursive(fullpath, albums, max_albums, album_count);
-        } else if (S_ISREG(path_stat.st_mode) && has_music_extension(ep->d_name)) {
+        }
+        else if (S_ISREG(path_stat.st_mode) && has_music_extension(ep->d_name))
+        {
             // If it's a music file, process it
             char album_name[256] = "Unknown Album";
+            char artist_name[256] = "Unknown Artist";
+            char duration[10] = "0";
+
             get_album_name(fullpath, album_name, sizeof(album_name));
+            get_artist_name(fullpath, artist_name, sizeof(artist_name));
+            if (get_duration(fullpath, duration, sizeof(duration)) == 0)
+            {
+                snprintf(duration, sizeof(duration), "0");
+            }
 
             int idx = find_album_index(albums, *album_count, album_name);
-            if (idx == -1 && *album_count < max_albums) {
+            if (idx == -1 && *album_count < max_albums)
+            {
                 idx = (*album_count)++;
                 strncpy(albums[idx].album_name, album_name, sizeof(albums[idx].album_name));
                 albums[idx].song_count = 0;
             }
 
-            if (idx >= 0 && albums[idx].song_count < MAX_SONGS_PER_ALBUM) {
+            if (idx >= 0 && albums[idx].song_count < MAX_SONGS_PER_ALBUM)
+            {
                 strncpy(albums[idx].songs[albums[idx].song_count].title, ep->d_name, sizeof(albums[idx].songs[0].title));
+                strncpy(albums[idx].songs[albums[idx].song_count].artist, artist_name, sizeof(albums[idx].songs[0].artist));
+                strncpy(albums[idx].songs[albums[idx].song_count].album, album_name, sizeof(albums[idx].songs[0].album));
+                strncpy(albums[idx].songs[albums[idx].song_count].duration, duration, sizeof(albums[idx].songs[0].duration));
                 strncpy(albums[idx].songs[albums[idx].song_count].path, fullpath, sizeof(albums[idx].songs[0].path));
                 albums[idx].song_count++;
             }
@@ -84,7 +147,8 @@ int scan_music_files_recursive(const char* root_dir, Album* albums, int max_albu
     return *album_count;
 }
 
-int scan_music_files(const char* root_dir, Album* albums, int max_albums) {
+int scan_music_files(const char* root_dir, Album* albums, int max_albums)
+{
     int album_count = 0;
     return scan_music_files_recursive(root_dir, albums, max_albums, &album_count);
 }
