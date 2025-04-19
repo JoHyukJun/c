@@ -13,7 +13,7 @@
 #include <ctype.h>
 
 #define MAX_SONGS 100
-#define HISTORY_FILE "user_history.dat"
+#define HISTORY_FILE "musique_history.dat"
 
 #endif
 // COMMON_H

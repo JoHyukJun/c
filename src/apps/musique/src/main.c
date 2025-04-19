@@ -9,6 +9,9 @@ int main()
     MusicFile songs[MAX_SONGS];
     int count = scan_music_directory(".music", songs, MAX_SONGS);
 
+    HistoryEntry history[MAX_HISTORY];
+    int history_count = load_history(HISTORY_FILE, history, MAX_HISTORY);
+
     if (count == 0)
     {
         printf("재생할 음악이 없습니다.\n");
@@ -32,14 +35,15 @@ int main()
         return 1;
     }
 
-    HistoryEntry history[MAX_HISTORY];
-    int history_count = load_history(HISTORY_FILE, history, MAX_HISTORY);
-
     play_audio(songs[choice - 1].path);
 
     update_history(history, &history_count, songs[choice - 1].path);
     save_history(HISTORY_FILE, history, history_count);
 
+    printf("🎧 재생 기록 업데이트 완료.\n");
+
+    printf("🎧 Top10 History\n");
+    show_top_history(history, history_count, 10);
 
     return (0);
 }
