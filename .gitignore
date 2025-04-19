@@ -60,3 +60,5 @@ dkms.conf
 *.mkv
 *.avi
 *.music
+*.cache
+*.tmp

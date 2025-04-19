@@ -6,7 +6,7 @@
 
 #include "metadata.h"
 
-int has_music_extension(const char* filename) {
+static int has_music_extension(const char* filename) {
     return strstr(filename, ".mp3") || strstr(filename, ".m4a") || strstr(filename, ".wav");
 }
 

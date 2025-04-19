@@ -3,20 +3,30 @@
 #include "file_scanner.h"
 #include "user_profile.h"
 #include "metadata.h"
+#include "cache.h"
 
 
 int main()
 {
+    Album albums[MAX_ALBUMS];
+    int count = 0;
+
     HistoryEntry history[MAX_HISTORY];
     int history_count = load_history(HISTORY_FILE, history, MAX_HISTORY);
 
-    Album albums[MAX_ALBUMS];
-    int count = scan_music_files(".music", albums, MAX_ALBUMS);
+    count = load_tag_cache(CAHCHE_FILE, albums, MAX_ALBUMS, MUSICQUE_DIR);
 
     if (count == 0)
     {
-        printf("재생할 음악이 없습니다.\n");
-        return 1;
+        printf("캐시 파일이 없습니다. ffprobe 분석 실행 중...\n");
+        count = scan_music_files(MUSICQUE_DIR, albums, MAX_ALBUMS);
+        save_tag_cache(CAHCHE_FILE, albums, count);
+
+        if (count == 0)
+        {
+            printf("음악 파일을 찾을 수 없습니다.\n");
+            return 1;
+        }
     }
 
     for (int i = 0; i < count; i++)

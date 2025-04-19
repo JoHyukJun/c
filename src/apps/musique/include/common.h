@@ -13,6 +13,8 @@
 #include <ctype.h>
 
 #define MAX_SONGS 100
+#define MUSICQUE_DIR ".music"
+#define CAHCHE_FILE ".cache/musique_cache.dat"
 #define HISTORY_FILE "musique_history.dat"
 
 #endif
