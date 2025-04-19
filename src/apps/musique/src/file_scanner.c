@@ -5,7 +5,7 @@
 #include "file_scanner.h"
 
 
-int has_music_extension(name)
+static int has_music_extension(name)
 const char* name;
 {
     return strstr(name, ".mp3") || strstr(name, ".wav") || strstr(name, ".m4a");
