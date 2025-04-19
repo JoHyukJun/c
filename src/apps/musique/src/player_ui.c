@@ -69,29 +69,18 @@ void draw_progress(double cur, double total) {
 }
 
 // 전체 재생 UI
-void draw_player_ui(title, artist, album, duration_sec)
+void draw_player_ui(title, artist, album, duration_sec, current_time)
 const char* title;
 const char* artist;
 const char* album;
-const char* duration_sec;
-
+double duration_sec;
+double current_time;
 {
-    double duration_sec_f = atof(duration_sec);
-    if (duration_sec <= 0) {
-        printf("Invalid duration: %s\n", duration_sec);
-        return;
-    }
-
-    srand(time(NULL));
-
-    for (double sec = 0; sec <= duration_sec_f; sec += 0.1)
-    {
-        printf(CLEAR_SCREEN CURSOR_HOME);
-        print_header();
-        print_song_info(title, artist, album);
-        draw_waveform(sec);
-        draw_progress(sec, duration_sec_f);
-        fflush(stdout);
-        usleep(100000); // 0.1초 대기
-    }
+    printf(CLEAR_SCREEN CURSOR_HOME);
+    fflush(stdout);
+    print_header();
+    print_song_info(title, artist, album);
+    draw_waveform(current_time);
+    draw_progress(current_time, duration_sec);
+    fflush(stdout);
 }

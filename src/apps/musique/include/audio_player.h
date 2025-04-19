@@ -2,6 +2,12 @@
 #define AUDIO_PLAYER_H
 
 #include <unistd.h>
+#include <signal.h>
+#include <fcntl.h>
+#include <termios.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
 #include "player_ui.h"
 #include "metadata.h"
 
