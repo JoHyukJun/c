@@ -13,7 +13,7 @@
 #include <ctype.h>
 
 #define MAX_SONGS 100
-#define MUSICQUE_DIR ".music"
+#define MUSICQUE_DIR "/Volumes/JO002TSE001/JO002TSE001/jo-drive/music/jo-music-library"
 #define CAHCHE_FILE ".cache/musique_cache.dat"
 #define HISTORY_FILE "musique_history.dat"
 

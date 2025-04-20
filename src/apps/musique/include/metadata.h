@@ -2,7 +2,7 @@
 #define METADATA_H
 
 #define MAX_SONGS_PER_ALBUM 100
-#define MAX_ALBUMS 100
+#define MAX_ALBUMS 10240
 
 typedef struct {
     char title[256]; // 파일 이름

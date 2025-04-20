@@ -4,27 +4,6 @@
 #include "audio_player.h"
 
 
-// 터미널을 비버퍼 모드로 설정
-void set_terminal_mode(int enable) {
-    static struct termios oldt, newt;
-
-    if (enable) {
-        // 현재 터미널 설정 저장
-        tcgetattr(STDIN_FILENO, &oldt);
-        newt = oldt;
-
-        // 비버퍼 모드 설정 (ICANON 비활성화, ECHO 비활성화)
-        newt.c_lflag &= ~(ICANON | ECHO);
-        tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-
-        // 파일 디스크립터를 논블로킹 모드로 설정
-        fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);
-    } else {
-        // 이전 터미널 설정 복원
-        tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-    }
-}
-
 void play_audio(const Song* song)
 {
     pid_t pid = fork();
@@ -68,20 +47,28 @@ void play_audio(const Song* song)
 
         int ret = select(STDIN_FILENO + 1, &read_fds, NULL, NULL, &timeout);
 
-        if (ret > 0 && FD_ISSET(STDIN_FILENO, &read_fds)) {
+        if (ret > 0 && FD_ISSET(STDIN_FILENO, &read_fds))
+        {
             // 사용자 입력 처리
-            if (read(STDIN_FILENO, &command, 1) > 0) {
-                if (command == 'p') { // 재생/일시정지
-                    if (is_paused) {
+            if (read(STDIN_FILENO, &command, 1) > 0)
+            {
+                if (command == 'p')
+                { // 재생/일시정지
+                    if (is_paused)
+                    {
                         kill(pid, SIGCONT); // ffplay 프로세스 재개
                         printf("▶ Resumed\n");
                         is_paused = 0;
-                    } else {
+                    }
+                    else
+                    {
                         kill(pid, SIGSTOP); // ffplay 프로세스 일시정지
                         printf("⏸ Paused\n");
                         is_paused = 1;
                     }
-                } else if (command == 'q') { // 종료
+                }
+                else if (command == 'q')
+                { // 종료
                     kill(pid, SIGKILL); // ffplay 프로세스 종료
                     printf("🛑 Stopped\n");
                     break;
@@ -90,7 +77,8 @@ void play_audio(const Song* song)
         }
 
         // 재생 중일 때만 진행 시간 증가
-        if (!is_paused) {
+        if (!is_paused)
+        {
             current_time += 0.1; // 0.1초 단위로 진행
         }
     }
