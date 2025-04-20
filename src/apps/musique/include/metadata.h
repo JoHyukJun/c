@@ -1,6 +1,12 @@
 #ifndef METADATA_H
 #define METADATA_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <dirent.h>
+#include <sys/stat.h>
+
 #define MAX_SONGS_PER_ALBUM 100
 #define MAX_ALBUMS 10240
 
