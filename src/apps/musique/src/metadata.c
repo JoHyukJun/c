@@ -6,7 +6,8 @@
 
 #include "metadata.h"
 
-static int has_music_extension(const char* filename) {
+static int has_music_extension(const char* filename)
+{
     return strstr(filename, ".mp3") || strstr(filename, ".m4a") || strstr(filename, ".wav");
 }
 
@@ -178,14 +179,17 @@ int get_file_extension(const char* filepath, char* file_extension_out, int max_l
     return 1;
 }
 
-int find_album_index(Album* albums, int count, const char* album_name) {
-    for (int i = 0; i < count; i++) {
+int find_album_index(Album* albums, int count, const char* album_name)
+{
+    for (int i = 0; i < count; i++)
+    {
         if (strcmp(albums[i].album_name, album_name) == 0) return i;
     }
     return -1;
 }
 
-int scan_music_files_recursive(const char* root_dir, Album* albums, int max_albums, int* album_count) {
+int scan_music_files_recursive(const char* root_dir, Album* albums, int max_albums, int* album_count)
+{
     DIR* dp = opendir(root_dir);
     if (!dp) return 0;
 
@@ -224,7 +228,7 @@ int scan_music_files_recursive(const char* root_dir, Album* albums, int max_albu
             char sample_rate[10] = "0";
             char channels[10] = "0";
             char file_size[20] = "0";
-            char file_format[10] = "Unknown";
+            char file_format[16] = "Unknown";
             char file_extension[10] = "Unknown";
 
             get_album_name(fullpath, album_name, sizeof(album_name));

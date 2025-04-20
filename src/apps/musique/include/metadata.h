@@ -16,7 +16,7 @@ typedef struct {
     char sample_rate[10]; // 샘플링 주파수
     char channels[10]; // 채널 수
     char file_size[20]; // 파일 크기
-    char file_format[10]; // 파일 형식
+    char file_format[16]; // 파일 형식
     char file_extension[10]; // 파일 확장자
     char path[512];  // 전체 경로
 } Song;

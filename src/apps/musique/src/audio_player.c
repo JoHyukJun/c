@@ -30,7 +30,7 @@ void play_audio(const Song* song)
         // UI 업데이트
         if (current_time != last_update_time)
         {
-            draw_player_ui(song->title, song->artist, song->album, duration, current_time); 
+            draw_player_ui(song, duration, current_time); 
             last_update_time = current_time;
         }
 
