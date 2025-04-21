@@ -1,14 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <math.h>
-#include <time.h>
+#include "player_ui.h"
 
-#define CLEAR_SCREEN "\033[2J"
-#define CURSOR_HOME "\033[H"
-#define COLOR_RESET "\033[0m"
-#define BOLD "\033[1m"
-#define BG_GRAY "\033[48;5;236m"
 
 // ANSI 그라데이션 컬러
 const char* colors[] = {
@@ -29,11 +20,39 @@ void print_header()
     printf("╚════════════════════════════════════════════════════════════════════════════════════════════════╝\n\n");
 }
 
+void file_size_to_human_readable(size, buffer, size_len)
+const long long size;
+char* buffer;
+int size_len;
+{
+    const char* units[] = {"B", "KB", "MB", "GB", "TB"};
+    int unit_index = 0;
+    double size_in_unit = (double)size;
+
+    while (size_in_unit >= 1024 && unit_index < 4)
+    {
+        size_in_unit /= 1024;
+        unit_index++;
+    }
+
+    snprintf(buffer, size_len, "%.2f %s", size_in_unit, units[unit_index]);
+}
+
 // 곡 정보 박스 출력
-void print_song_info(const char* title, const char* artist, const char* album) {
-    printf("📝 Title   : 「%s」\n", title);
-    printf("🎤 Artist  : %s\n", artist);
-    printf("💿 Album   : %s\n\n", album);
+void print_song_info(song)
+const Song* song;
+{
+    char file_size_str[20];
+    file_size_to_human_readable(atoll(song->file_size), file_size_str, sizeof(file_size_str));
+
+    printf("📝 Title   : 「%s」\n", song->title);
+    printf("🎤 Artist  : %s\n", song->artist);
+    printf("💿 Album   : %s\n", song->album);
+    printf("🎧 Bitrate : %s\n", song->bitrate);
+    printf("🎶 Sample  : %s\n", song->sample_rate);
+    printf("🔊 Channels: %s\n", song->channels);
+    printf("📂 File    : %s\n", song->file_format);
+    printf("📏 Size    : %s\n\n", file_size_str);
 }
 
 // 웨이브 시뮬레이션 출력
@@ -53,33 +72,35 @@ void draw_waveform(double tick) {
 }
 
 // 진행바
-void draw_progress(double cur, double total) {
+void draw_progress(double cur, double total)
+{
     int width = 40;
     int filled = (int)((cur * width) / total);
     printf("\n⏯️ %02d:%05.2f / %02d:%05.2f   [",
            (int)(cur / 60), fmod(cur, 60.0),
            (int)(total / 60), fmod(total, 60.0));
-    for (int i = 0; i < width; i++) {
+
+    for (int i = 0; i < width; i++)
+    {
         if (i < filled)
             printf("█");
         else
             printf("░");
     }
+
     printf("] %.2f%%\n", (cur * 100) / total);
 }
 
 // 전체 재생 UI
-void draw_player_ui(title, artist, album, duration_sec, current_time)
-const char* title;
-const char* artist;
-const char* album;
+void draw_player_ui(song, duration_sec, current_time)
+const Song* song;
 double duration_sec;
 double current_time;
 {
     printf(CLEAR_SCREEN CURSOR_HOME);
     fflush(stdout);
     print_header();
-    print_song_info(title, artist, album);
+    print_song_info(song);
     draw_waveform(current_time);
     draw_progress(current_time, duration_sec);
     fflush(stdout);

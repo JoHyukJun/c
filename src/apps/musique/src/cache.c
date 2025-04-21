@@ -73,10 +73,10 @@ int load_tag_cache(const char* path, Album* albums, int max_albums, const char* 
     {
         line[strcspn(line, "\n")] = '\0';
 
-        char filepath[512], album[256], artist[256], duration[10];
+        char filepath[512], album[256], artist[256], duration[10], bitrate[10], sample_rate[10], channels[10], file_size[20], file_format[16];
         long mtime;
 
-        if (sscanf(line, "%[^|]|%[^|]|%[^|]|%[^|]|%ld", filepath, album, artist, duration, &mtime) != 5) continue;
+        if (sscanf(line, "%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%ld", filepath, album, artist, duration, bitrate, sample_rate, channels, file_size, file_format, &mtime) != 10) continue;
 
         long current_mtime = get_mtime(filepath);
 
@@ -101,6 +101,11 @@ int load_tag_cache(const char* path, Album* albums, int max_albums, const char* 
             strncpy(albums[idx].songs[albums[idx].song_count].artist, artist, sizeof(albums[idx].songs[0].artist));
             strncpy(albums[idx].songs[albums[idx].song_count].album, album, sizeof(albums[idx].songs[0].album));
             strncpy(albums[idx].songs[albums[idx].song_count].duration, duration, sizeof(albums[idx].songs[0].duration));
+            strncpy(albums[idx].songs[albums[idx].song_count].bitrate, bitrate, sizeof(albums[idx].songs[0].bitrate));
+            strncpy(albums[idx].songs[albums[idx].song_count].sample_rate, sample_rate, sizeof(albums[idx].songs[0].sample_rate));
+            strncpy(albums[idx].songs[albums[idx].song_count].channels, channels, sizeof(albums[idx].songs[0].channels));
+            strncpy(albums[idx].songs[albums[idx].song_count].file_size, file_size, sizeof(albums[idx].songs[0].file_size));
+            strncpy(albums[idx].songs[albums[idx].song_count].file_format, file_format, sizeof(albums[idx].songs[0].file_format));
             strncpy(albums[idx].songs[albums[idx].song_count].path, filepath, sizeof(albums[idx].songs[0].path));
             albums[idx].song_count++;
         }
@@ -123,7 +128,7 @@ int save_tag_cache(const char* path, Album* albums, int album_count)
         {
             const Song* song = &albums[i].songs[j];
             long mtime = get_mtime(song->path);
-            fprintf(fp, "%s|%s|%s|%s|%ld\n", song->path, albums[i].album_name, song->artist, song->duration, mtime);
+            fprintf(fp, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%ld\n", song->path, albums[i].album_name, song->artist, song->duration, song->bitrate, song->sample_rate, song->channels, song->file_size, song->file_format, mtime);
         }
     }
 
