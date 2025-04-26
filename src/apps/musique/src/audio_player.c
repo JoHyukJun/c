@@ -87,3 +87,46 @@ void play_audio(const Song* song)
     kill(pid, SIGKILL); // 재생이 끝나면 ffplay 종료
     waitpid(pid, NULL, 0);
 }
+
+
+int play_random_songs(album)
+const Album* album;
+{
+    int song_count = album->song_count;
+    int random_index = rand() % song_count;
+
+    if (song_count == 0)
+    {
+        printf("앨범에 음악이 없습니다.\n");
+
+        return (-1);
+    }
+
+    int played[song_count];
+
+    for (int i = 0; i < song_count; i++)
+    {
+        played[i] = 0;
+    }
+
+    int remaining = song_count;
+
+    printf("🎲 랜덤 플레이 시작: %s\n", album->album_name);
+
+    while (remaining > 0)
+    {
+        random_index = rand() % song_count;
+
+        if (!played[random_index])
+        {
+            played[random_index] = 1;
+            remaining--;
+
+            play_audio(&album->songs[random_index]);
+        }
+    }
+
+    printf("🎲 랜덤 플레이 종료\n");
+    
+    return (1);
+}

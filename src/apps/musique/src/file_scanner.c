@@ -8,7 +8,7 @@
 static int has_music_extension(name)
 const char* name;
 {
-    return strstr(name, ".mp3") || strstr(name, ".wav") || strstr(name, ".m4a");
+    return strstr(name, ".mp3") || strstr(name, ".wav") || strstr(name, ".m4a") || strstr(name, ".flac");
 }
 
 int scan_music_directory_recursive(dir, list, max_count, count)
@@ -69,5 +69,6 @@ MusicFile* list;
 int max_count;
 {
     int count = 0;
+
     return scan_music_directory_recursive(dir, list, max_count, &count);
 }

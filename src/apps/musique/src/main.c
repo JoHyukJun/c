@@ -86,6 +86,7 @@ char* argv[];
         printf("   [앨범 경로] %s\n", albums[i].songs[0].path);
         printf("   [곡 수] %d\n", albums[i].song_count);
         printf("🎵 음악 리스트:\n");
+
         for (int j = 0; j < albums[i].song_count; j++)
         {
             printf("   [%d] %s\n", j + 1, albums[i].songs[j].title);
@@ -103,9 +104,27 @@ char* argv[];
         return 1;
     }
 
-    printf("🎵 음악 번호 선택: ");
+    printf("🎵 음악 번호 선택(랜덤 플레이: 0): ");
     int song_choice;
     scanf("%d", &song_choice);
+
+    if (song_choice == 0)
+    {
+        printf("랜덤 플레이를 선택했습니다.\n");
+        
+        if (play_random_songs(&albums[album_choice - 1]) == 1)
+        {
+            printf("musique: SUCCESSFULLY COMPLETED\n");
+
+            return (1);
+        }
+        else
+        {
+            printf("랜덤 플레이 실패\n");
+            
+            return (-1);
+        }
+    }
 
     if (song_choice < 1 || song_choice > albums[album_choice - 1].song_count)
     {
