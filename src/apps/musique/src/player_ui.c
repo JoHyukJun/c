@@ -74,9 +74,9 @@ void draw_waveform(double tick) {
 // 진행바
 void draw_progress(double cur, double total)
 {
-    int width = 40;
+    int width = 60;
     int filled = (int)((cur * width) / total);
-    printf("\n⏯️ %02d:%05.2f / %02d:%05.2f   [",
+    printf("\n⏯️   %02d:%05.2f / %02d:%05.2f   [",
            (int)(cur / 60), fmod(cur, 60.0),
            (int)(total / 60), fmod(total, 60.0));
 

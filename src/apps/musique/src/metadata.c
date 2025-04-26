@@ -306,5 +306,6 @@ int scan_music_files_recursive(const char* root_dir, Album* albums, int max_albu
 int scan_music_files(const char* root_dir, Album* albums, int max_albums)
 {
     int album_count = 0;
+    
     return scan_music_files_recursive(root_dir, albums, max_albums, &album_count);
 }

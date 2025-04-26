@@ -55,7 +55,8 @@ char* argv[];
     if (!albums)
     {
     perror("Failed to allocate memory for albums");
-    return -1;
+    
+    return (-1);
     }
 
     HistoryEntry history[MAX_HISTORY];
@@ -114,8 +115,8 @@ char* argv[];
         
         if (play_random_songs(&albums[album_choice - 1]) == 1)
         {
-            printf("musique: SUCCESSFULLY COMPLETED\n");
-
+            printf("musique: SUCCESSFULLY PROGRAM EXITED.\n");
+            
             return (1);
         }
         else
@@ -129,7 +130,8 @@ char* argv[];
     if (song_choice < 1 || song_choice > albums[album_choice - 1].song_count)
     {
         printf("[%d:%d]잘못된 선택입니다.\n", song_choice, albums[album_choice].song_count);
-        return 1;
+        
+        return (-1);
     }
 
     play_audio(&albums[album_choice - 1].songs[song_choice - 1]);
