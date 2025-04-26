@@ -65,7 +65,7 @@ char* argv[];
     printf("🎧 재생 기록 로드 완료. %d개의 항목이 있습니다.\n", history_count);
 
     printf("🎧 음악 디렉토리: %s\n", MUSICQUE_DIR);
-    count = load_tag_cache(CAHCHE_FILE, albums, MAX_ALBUMS, MUSICQUE_DIR);
+    count = update_cache(CAHCHE_FILE, albums, MAX_ALBUMS, MUSICQUE_DIR);
 
     if (count == 0)
     {

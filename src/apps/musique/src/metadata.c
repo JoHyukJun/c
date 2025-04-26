@@ -1,8 +1,9 @@
 #include "metadata.h"
 
-static int has_music_extension(const char* filename)
+static int has_music_extension(filename)
+const char* filename;
 {
-    return strstr(filename, ".mp3") || strstr(filename, ".m4a") || strstr(filename, ".wav");
+    return strstr(filename, ".mp3") || strstr(filename, ".m4a") || strstr(filename, ".wav") || strstr(filename, ".aif");
 }
 
 int compare_by_track_number(const void* a, const void* b)
@@ -235,6 +236,8 @@ int scan_music_files_recursive(const char* root_dir, Album* albums, int max_albu
             perror("Failed to get file status");
             continue;
         }
+
+        printf("Scanning directory: %s\n", fullpath);
 
         if (S_ISDIR(path_stat.st_mode))
         {

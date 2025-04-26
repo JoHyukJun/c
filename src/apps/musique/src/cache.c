@@ -31,6 +31,54 @@ long get_mtime(const char* path)
     return 0;
 }
 
+long get_directory_mtime(path)
+const char* path;
+{
+    struct stat attr;
+
+    if (stat(path, &attr) == 0) return attr.st_mtime;
+
+    return (0);
+}
+
+int save_directory_mtime(path, dir_mtime)
+const char* path;
+long dir_mtime;
+{
+    FILE* fp = fopen(path, "a");
+
+    if (!fp) return 0;
+
+    fprintf(fp, "DIR_MTIME|%ld\n", dir_mtime);
+
+    fclose(fp);
+
+    return (1);
+}
+
+int load_directory_mtime(path)
+const char* path;
+{
+    FILE* fp = fopen(path, "r");
+    if (!fp) return 0;
+
+    char line[MAX_CACHE_LINE];
+    long dir_mtime = 0;
+
+    while (fgets(line, sizeof(line), fp))
+    {
+        if (strncmp(line, "DIR_MTIME|", 10) == 0)
+        {
+            sscanf(line, "DIR_MTIME|%ld", &dir_mtime);
+            break;
+        }
+    }
+
+    fclose(fp);
+
+    return dir_mtime;
+}
+
 // 앨범 인덱스 찾기
 static int find_album_index(Album* albums, int count, const char* album_name)
 {
@@ -69,6 +117,7 @@ int load_tag_cache(const char* path, Album* albums, int max_albums, const char* 
     int album_count = 0;
 
     char line[MAX_CACHE_LINE];
+
     while (fgets(line, sizeof(line), fp))
     {
         line[strcspn(line, "\n")] = '\0';
@@ -80,7 +129,14 @@ int load_tag_cache(const char* path, Album* albums, int max_albums, const char* 
 
         long current_mtime = get_mtime(filepath);
 
-        if (current_mtime != mtime) continue;
+        if (current_mtime != mtime)
+        {
+            continue;
+        }
+        else
+        {
+            printf("cached: %s\n", filepath);
+        }
 
         const char* filename = strrchr(filepath, '/');
         if (!filename) filename = filepath;
@@ -113,8 +169,36 @@ int load_tag_cache(const char* path, Album* albums, int max_albums, const char* 
 
     fclose(fp);
     closedir(dp);
+
     return album_count;
 }
+
+int update_cache(path, albums, max_albums, music_dir)
+const char* path;
+Album* albums;
+int max_albums;
+const char* music_dir;
+{
+    long current_dir_mtime = get_directory_mtime(music_dir);
+    long cached_dir_mtime = load_directory_mtime(path);
+
+    if (current_dir_mtime != cached_dir_mtime)
+    {
+        printf("디렉토리 변화 감지되었습니다. 캐시를 새로 생성합니다...\n");
+
+        clear_cache(path);
+
+        int album_count = scan_music_files(music_dir, albums, max_albums);
+        
+        save_tag_cache(path, albums, album_count);
+        save_directory_mtime(path, current_dir_mtime);
+
+        return album_count;
+    }
+
+    return load_tag_cache(path, albums, max_albums, music_dir);
+}
+
 
 // 캐시 저장
 int save_tag_cache(const char* path, Album* albums, int album_count)
