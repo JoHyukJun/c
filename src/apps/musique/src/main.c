@@ -55,7 +55,8 @@ char* argv[];
     if (!albums)
     {
     perror("Failed to allocate memory for albums");
-    return -1;
+    
+    return (-1);
     }
 
     HistoryEntry history[MAX_HISTORY];
@@ -64,7 +65,7 @@ char* argv[];
     printf("🎧 재생 기록 로드 완료. %d개의 항목이 있습니다.\n", history_count);
 
     printf("🎧 음악 디렉토리: %s\n", MUSICQUE_DIR);
-    count = load_tag_cache(CAHCHE_FILE, albums, MAX_ALBUMS, MUSICQUE_DIR);
+    count = update_cache(CAHCHE_FILE, albums, MAX_ALBUMS, MUSICQUE_DIR);
 
     if (count == 0)
     {
@@ -86,6 +87,7 @@ char* argv[];
         printf("   [앨범 경로] %s\n", albums[i].songs[0].path);
         printf("   [곡 수] %d\n", albums[i].song_count);
         printf("🎵 음악 리스트:\n");
+
         for (int j = 0; j < albums[i].song_count; j++)
         {
             printf("   [%d] %s\n", j + 1, albums[i].songs[j].title);
@@ -103,14 +105,33 @@ char* argv[];
         return 1;
     }
 
-    printf("🎵 음악 번호 선택: ");
+    printf("🎵 음악 번호 선택(랜덤 플레이: 0): ");
     int song_choice;
     scanf("%d", &song_choice);
+
+    if (song_choice == 0)
+    {
+        printf("랜덤 플레이를 선택했습니다.\n");
+        
+        if (play_random_songs(&albums[album_choice - 1]) == 1)
+        {
+            printf("musique: SUCCESSFULLY PROGRAM EXITED.\n");
+            
+            return (1);
+        }
+        else
+        {
+            printf("랜덤 플레이 실패\n");
+            
+            return (-1);
+        }
+    }
 
     if (song_choice < 1 || song_choice > albums[album_choice - 1].song_count)
     {
         printf("[%d:%d]잘못된 선택입니다.\n", song_choice, albums[album_choice].song_count);
-        return 1;
+        
+        return (-1);
     }
 
     play_audio(&albums[album_choice - 1].songs[song_choice - 1]);

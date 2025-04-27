@@ -11,7 +11,7 @@
 #include "player_ui.h"
 #include "metadata.h"
 
-
 void play_audio(const Song* song);
+int play_random_songs(const Album* album);
 
 #endif
