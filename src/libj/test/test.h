@@ -17,6 +17,7 @@
 #include "sqlitelib.h"
 #include "loglib.h"
 #include "hashlib.h"
+#include "memflib.h"
 
 #define TEST_SEM_KEY 0xE100001
 

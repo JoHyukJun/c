@@ -209,11 +209,3 @@ int col;
 {
     return sqlite3_column_type(stmt, col);
 }
-
-int sqlite_column_int(stmt, col)
-sqlite3_stmt *stmt;
-int col;
-{
-    return sqlite3_column_int(stmt, col);
-}
-
