@@ -7,6 +7,56 @@ void print_test()
     printf("test.c\n");
 }
 
+void test_memflib()
+{
+    memf_handle_t *handle;
+    const char *shm_name = "/test_memf_shm";
+    const char *key = "test_key";
+    const char *data = "Hello, Shared Memory!";
+    size_t data_size = strlen(data) + 1; // null 포함
+
+    // 공유 메모리 생성
+    handle = memf_create(shm_name, 1024);
+    if (!handle) {
+        fprintf(stderr, "Failed to create shared memory\n");
+        return;
+    }
+
+    // 데이터 쓰기
+    if (memf_write(handle, key, data, data_size) != 0) {
+        fprintf(stderr, "Failed to write data\n");
+        memf_close(handle);
+        return;
+    }
+
+    memf_print_stats(handle);
+
+    // 데이터 읽기
+    char buffer[256];
+    size_t read_size = sizeof(buffer);
+    if (memf_read(handle, key, buffer, &read_size) != 0) {
+        fprintf(stderr, "Failed to read data\n");
+        memf_close(handle);
+        return;
+    }
+
+    printf("Read data: %s\n", buffer);
+
+    // 데이터 삭제
+    if (memf_delete(handle, key) != 0) {
+        fprintf(stderr, "Failed to delete data\n");
+    }
+    memf_print_stats(handle);
+
+    // 공유 메모리 닫기
+    memf_close(handle);
+
+    // 공유 메모리 제거
+    memf_destroy(shm_name);
+
+    printf("memflib test completed\n");
+}
+
 void test_semlib()
 {
     int t1;
@@ -120,7 +170,7 @@ int main()
 {
     print_test();
 
-    test_filelib();
+    test_memflib();
 
     return (0);
 }
